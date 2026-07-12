@@ -23,10 +23,18 @@ The three-layer idea: **sources** are the authoritative raw ground truth, **page
 
 ## Serving as a site
 
+The wiki lives flat at the repo root (the Karpathy layout); MkDocs needs an
+isolated docs dir, so a small script stages it into `docs/` first:
+
 ```bash
 pip install mkdocs mkdocs-material
+./scripts/stage-docs.sh   # copies index.md, log.md, pages/, sources/ → docs/
 mkdocs serve
 ```
+
+Every push to `main` also builds the site and deploys it to **GitHub Pages**
+via [`.github/workflows/deploy-docs.yml`](.github/workflows/deploy-docs.yml)
+(strict build — a broken link fails CI).
 
 ## Coverage
 

@@ -1,10 +1,15 @@
 site_name: Mini LLM Wiki — Data & AI Platform
 site_description: An agent-maintained LLM knowledge base for data & AI platform teams
-docs_dir: .
-site_dir: /tmp/mini-llm-wiki-site
-exclude_docs: |
-  CLAUDE.md
-  sources/
+docs_dir: docs        # staged by scripts/stage-docs.sh from the repo root
+site_dir: site
+
+# Fail the build on broken links, but don't fail on pages intentionally
+# kept out of the nav (CLAUDE.md, sources/).
+validation:
+  nav:
+    omitted_files: info
+  links:
+    unrecognized_links: warn
 
 theme:
   name: material
@@ -31,8 +36,7 @@ markdown_extensions:
   - pymdownx.superfences
 
 nav:
-  - Home: README.md
-  - Index: index.md
+  - Home: index.md
   - Fundamentals:
       - What is an LLM?: pages/what-is-an-llm.md
       - Transformer architecture: pages/transformer-architecture.md
