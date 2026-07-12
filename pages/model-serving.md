@@ -1,62 +1,41 @@
 ---
 title: Model serving
-category: inference-serving
+category: ml-platform
 updated: 2026-07-12
 ---
 
 # Model serving
 
-**Model serving** is how an LLM becomes an API. Whether you consume a provider API or host open weights yourself, understanding the serving layer explains latency, throughput, and cost behavior.
+**Model serving** is how a trained model's predictions reach consumers — as a nightly batch of scores, a low-latency API, or a stream processor. The serving pattern, not the model, determines most of the engineering cost; choose the *least* online pattern that meets the product need.
 
-## The two phases of a request
+## The three patterns
 
-1. **Prefill** — the prompt is processed in one parallel pass, populating the KV cache. Compute-bound; determines **time-to-first-token (TTFT)**; scales with input length.
-2. **Decode** — tokens generate one at a time, each reading the whole KV cache. Memory-bandwidth-bound; determines **tokens/sec**; scales with output length.
+| Pattern | How | Latency | Cost/ops | Fit |
+|---|---|---|---|---|
+| **Batch scoring** | [Orchestrated job](orchestration.md) scores a table; results land in the [warehouse](data-warehouse.md)/cache | Hours | Lowest — it's a pipeline | Churn scores, recommendations refreshed daily, most use cases honestly |
+| **Online serving** | Model behind an API; features fetched at request time ([feature store](feature-stores.md)) | ms | Highest — a 24/7 service with SLOs | Fraud checks, ranking, dynamic pricing |
+| **Streaming scoring** | Model embedded in a [stream processor](stream-processing.md) | Seconds | Medium | Event-driven decisions, alerting |
 
-This split drives everything: long prompts hurt TTFT, long outputs hurt total latency, and the KV cache (not weights) is usually what limits concurrent requests on a GPU.
+The classic error is defaulting to online serving for predictions consumed once a day — paying service-ownership costs for pipeline value.
 
-## Consuming provider APIs (most teams, most of the time)
+## Online serving engineering
 
-Key operational surface:
+- **Feature access dominates latency**: request-time lookups from the online [feature store](feature-stores.md); precompute what you can.
+- **Deployment safety**: model versions promoted through a registry with [eval gates](mlops.md); shadow deployments (score, don't act), canary %, instant rollback.
+- **Observability**: log inputs + outputs (governed — they're data: [data-governance.md](data-governance.md)) for drift detection and retraining sets.
+- **Scaling shape**: CPU inference for most classic ML; GPUs enter with deep models — then batching and utilization economics start to matter.
 
-- **Streaming** — always stream user-facing responses; perceived latency is TTFT, not total time.
-- **Rate limits** — requests/min and tokens/min; build client-side queuing, backoff, and per-team quotas into your [gateway](reference-architecture.md).
-- **Model versioning** — pin explicit versions; treat provider upgrades as deploys with [eval gates](evaluation.md).
-- **Batch APIs** — 50%+ discounts for async workloads ([cost](cost-optimization.md)); route [pipeline](data-pipelines-for-llms.md) jobs there.
-- **Failover** — multi-provider or multi-region fallback for availability; beware subtle behavior differences between "equivalent" models.
+## LLM serving: same discipline, harsher physics
 
-## Self-hosting open weights
+Serving LLMs inherits everything above plus its own regime — huge models, token-by-token generation, GPU memory as the binding constraint:
 
-When [build-vs-buy](build-vs-buy.md) lands on self-hosting, you'll run an inference server:
-
-| Engine | Notes |
-|---|---|
-| **vLLM** | De facto default; PagedAttention, continuous batching, OpenAI-compatible API |
-| **SGLang** | Strong at structured output & shared-prefix workloads |
-| **TensorRT-LLM** | Peak NVIDIA performance; more build complexity |
-| **llama.cpp / Ollama** | CPU/edge/dev boxes, not production fleets |
-
-Core serving techniques (mostly built into the above):
-
-- **Continuous batching** — new requests join the batch at every decode step; the single biggest throughput win over naive batching.
-- **PagedAttention** — virtual-memory-style KV-cache management; eliminates fragmentation, enables high concurrency.
-- **Prefix caching** — shared system prompts computed once.
-- **Speculative decoding** — small draft model proposes tokens, large model verifies; 2–3× decode speedup.
-- See [inference optimization](inference-optimization.md) for quantization and hardware sizing.
-
-## SLOs that matter
-
-| Metric | Definition | Typical interactive target |
-|---|---|---|
-| TTFT | Time to first token | < 1 s |
-| TPOT / tokens-sec | Inter-token latency | > 30 tok/s (faster than reading) |
-| Goodput | Requests meeting SLO per GPU | The real capacity metric |
-| Availability | Incl. provider outages | Design failover for it |
-
-Autoscale on **KV-cache utilization / queue depth**, not CPU. Load-test with realistic token-length distributions — throughput numbers from short-prompt benchmarks are fiction for RAG workloads.
+- **Two-phase requests**: prompt *prefill* (parallel, compute-bound) then *decode* (sequential, memory-bandwidth-bound) — so time-to-first-token and tokens/sec are separate SLOs.
+- **Continuous batching + KV-cache management** (vLLM/SGLang-class engines) determine throughput; **quantization** (FP8/INT4) trades memory for evaluated quality loss.
+- **Most teams consume provider APIs** rather than self-hosting — making the serving problem one of gateways, quotas, caching, and failover instead of GPUs ([llms-on-the-platform.md](llms-on-the-platform.md), [build-vs-buy.md](build-vs-buy.md)).
+- Cost scales with *tokens processed*, not instances — a different [FinOps](finops.md) conversation.
 
 ## Related
 
-- [Inference optimization](inference-optimization.md)
-- [Cost optimization](cost-optimization.md)
-- [Reference architecture](reference-architecture.md)
+- [ml-platform-overview.md](ml-platform-overview.md)
+- [feature-stores.md](feature-stores.md)
+- [llms-on-the-platform.md](llms-on-the-platform.md)

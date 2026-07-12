@@ -4,57 +4,60 @@ Catalog of every page in `pages/`, one line each. Maintained per the workflows i
 
 ## fundamentals
 
-- [What is an LLM?](pages/what-is-an-llm.md) — definition, lifecycle, key properties, and why LLMs reshape data platforms.
-- [Transformer architecture](pages/transformer-architecture.md) — attention, MLPs, KV cache, and variants; what the architecture implies for serving.
-- [Tokenization](pages/tokenization.md) — tokens as the unit of cost, capacity, and latency; practical counting guidance.
-- [Embeddings](pages/embeddings.md) — dense vectors for semantic similarity; embeddings as derived data with versioning obligations.
-- [Context windows](pages/context-windows.md) — what fills the window, long-context vs. RAG trade-offs, budget management.
+- [What is a data platform?](pages/what-is-a-data-platform.md) — the capability layers, what makes it a platform, and a build order that works.
+- [OLTP vs. OLAP](pages/oltp-vs-olap.md) — transactional vs. analytical workloads; why columnar wins and why analytics leaves the production DB.
+- [Batch vs. streaming](pages/batch-vs-streaming.md) — the freshness-vs-complexity dial, what genuinely needs streaming, and the convergence.
 
-## data-platform
+## storage
 
-- [Data pipelines for LLM workloads](pages/data-pipelines-for-llms.md) — the extract→chunk→embed→index pipeline and its engineering requirements; LLMs as pipeline operators.
-- [Vector databases](pages/vector-databases.md) — ANN indexes (HNSW/IVF/quantization), metadata filtering, deployment options, capacity math.
-- [Data quality & curation](pages/data-quality-and-curation.md) — corpus curation for RAG/fine-tuning; output contracts for LLM-generated data.
-- [Data governance for AI](pages/data-governance.md) — ACL propagation, PII handling, provider policy, lineage, audit logging, regulation.
+- [Data warehouse](pages/data-warehouse.md) — columnar MPP SQL, storage/compute separation, layered layout, operational realities.
+- [Data lake](pages/data-lake.md) — everything raw on object storage; zone structure and swamp-avoidance discipline.
+- [Lakehouse](pages/lakehouse.md) — warehouse guarantees on open lake storage; what table formats buy and what maintenance they demand.
+- [Table & file formats](pages/table-and-file-formats.md) — Parquet and friends; Iceberg/Delta/Hudi; how a table format works; operational duties.
 
-## rag
+## ingestion-processing
 
-- [RAG overview](pages/rag-overview.md) — grounding LLMs in your data: anatomy, quality levers, failure modes, variants.
-- [Chunking strategies](pages/chunking-strategies.md) — splitting documents for retrieval: strategies, defaults, debugging chunk problems.
-- [Retrieval techniques](pages/retrieval-techniques.md) — the retrieval stack: query processing, hybrid search, filtering, reranking.
-- [Evaluating RAG systems](pages/rag-evaluation.md) — golden datasets, retrieval vs. generation metrics, the RAG triad, LLM-as-judge.
+- [Data ingestion](pages/data-ingestion.md) — batch extract, CDC, streaming, connectors; ELT-first; engineering requirements at the platform's front door.
+- [Data transformation](pages/data-transformation.md) — transformations-as-code: layered models, tests, CI, incremental processing, pitfalls.
+- [Orchestration](pages/orchestration.md) — DAGs, scheduling, backfills; task- vs. asset-centric; design guidance.
+- [Stream processing](pages/stream-processing.md) — event logs, windows, watermarks, state; platform integration patterns and honest costs.
 
-## training-adaptation
+## modeling-serving
 
-- [Pretraining](pages/pretraining.md) — how base models are made and what that implies for consumers; continued pretraining.
-- [Fine-tuning](pages/fine-tuning.md) — behavior not facts; when to tune, LoRA/QLoRA, data requirements, process checklist.
-- [Alignment (RLHF & friends)](pages/alignment.md) — SFT, RLHF/DPO, reasoning RL; trained-in behaviors you inherit and must guard around.
+- [Data modeling](pages/data-modeling.md) — dimensional modeling, OBT, Data Vault; grain, SCDs; modeling for ML and AI consumers.
+- [Semantic layer](pages/semantic-layer.md) — metrics defined once as governed code; why it's the prerequisite for AI analytics.
+- [Query engines](pages/query-engines.md) — the engine landscape by workload, how engines go fast, choosing without sprawl.
 
-## inference-serving
+## governance-quality
 
-- [Model serving](pages/model-serving.md) — prefill/decode, consuming APIs well, self-hosting engines, SLOs.
-- [Inference optimization](pages/inference-optimization.md) — quantization, KV-cache management, speculative decoding, parallelism, sizing.
-- [Cost optimization](pages/cost-optimization.md) — measure→cheaper-per-request→fewer-requests, with a worked example.
+- [Data governance](pages/data-governance.md) — ownership, classification, access, lifecycle; the regulatory floor; governance for AI consumers.
+- [Data catalog & lineage](pages/data-catalog-and-lineage.md) — the searchable inventory and the dependency graph; impact analysis; adoption honesty.
+- [Data quality](pages/data-quality.md) — dimensions, defense layers (contracts, tests, observability, incidents), quality for AI consumers.
+- [Data security & privacy](pages/data-security-and-privacy.md) — access control granularity, protection, privacy engineering, AI-era attack surfaces.
 
-## llmops
+## ml-platform
 
-- [LLMOps overview](pages/llmops-overview.md) — how LLMOps differs from MLOps; the config surface; maturity ladder.
-- [Evaluation](pages/evaluation.md) — golden datasets, deterministic checks, LLM-as-judge calibration, evals as CI.
-- [Monitoring & observability](pages/monitoring-and-observability.md) — gateway instrumentation, four signal layers, drift, closing the loop.
-- [Prompt management](pages/prompt-management.md) — prompts as production code: engineering, versioning, registries, anti-patterns.
+- [ML platform overview](pages/ml-platform-overview.md) — the capability map, the golden path, classic ML vs. GenAI on one platform.
+- [Feature stores](pages/feature-stores.md) — training/serving skew and point-in-time correctness; offline/online anatomy; do you need one.
+- [Model serving](pages/model-serving.md) — batch vs. online vs. streaming serving; deployment safety; LLM serving's harsher physics.
+- [MLOps](pages/mlops.md) — versioning code×data×config, evaluation gates, drift monitoring, retraining; CI/CD/CT.
 
-## agents-integration
+## genai-platform
 
-- [LLM agents](pages/agents.md) — the agent loop, workflow-vs-agent choice, data-platform agents, bounding and evaluating them.
-- [Tool use & function calling](pages/tool-use.md) — the tool loop, designing tools for probabilistic callers, security at the executor.
-- [Model Context Protocol (MCP)](pages/mcp.md) — the standard connecting AI apps to data systems; why platform teams should care.
+- [LLMs on the data platform](pages/llms-on-the-platform.md) — the platform team's working model: what LLMs demand from and offer the platform.
+- [Embeddings](pages/embeddings.md) — vectors as derived data: lineage, invalidation, deletion, footprint math.
+- [Vector databases](pages/vector-databases.md) — ANN indexes, metadata/ACL filtering, deployment options, platform integration.
+- [Retrieval-Augmented Generation (RAG)](pages/rag.md) — the two pipelines, quality levers in ROI order, evaluation, failure modes, variants.
+- [LLMOps](pages/llmops.md) — the config surface, evaluation with LLM judges, gateway monitoring, prompt management.
+- [Agents & MCP](pages/agents-and-mcp.md) — tool use, data-platform agent patterns, MCP as governed integration, safety engineering.
 
 ## platform-architecture
 
-- [Reference architecture](pages/reference-architecture.md) — gateway, model layer, knowledge layer, LLMOps layer; adoption sequence.
-- [Build vs. buy](pages/build-vs-buy.md) — API vs. self-hosted models, tooling, applications; the TCO trap checklist.
-- [Security & privacy](pages/security-and-privacy.md) — prompt injection, data disclosure, excessive agency; guardrail layers.
+- [Reference architecture](pages/reference-architecture.md) — the layered big picture and a build order where each stage funds the next.
+- [Data mesh & team topologies](pages/data-mesh.md) — domain ownership, data products, federated governance; when mesh fits and when it doesn't.
+- [Build vs. buy](pages/build-vs-buy.md) — layer-by-layer defaults, the model decision, TCO traps, a usable rubric.
+- [FinOps for data & AI](pages/finops.md) — visibility → attribution → optimization → accountability; where the money goes; AI token spend.
 
 ## reference
 
-- [Glossary](pages/glossary.md) — one-line definitions of ~40 terms, each linking to its full page.
+- [Glossary](pages/glossary.md) — one-line definitions of ~45 terms, each linking to its full page.

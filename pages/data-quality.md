@@ -1,0 +1,45 @@
+---
+title: Data quality
+category: governance-quality
+updated: 2026-07-12
+---
+
+# Data quality
+
+**Data quality** is whether data is fit for its consumers' purposes — fresh enough, complete enough, correct enough. Its cost curve is brutal: an error caught at [ingestion](data-ingestion.md) costs minutes; the same error discovered in an executive dashboard, a model's training set, or an [AI agent's action](agents-and-mcp.md) costs trust, and trust is the platform's actual product.
+
+## The dimensions (pick metrics per dataset, not slogans)
+
+| Dimension | Example check |
+|---|---|
+| **Freshness** | Table updated within SLO ("orders current to 15 min") |
+| **Completeness** | Row counts vs. source; critical columns null-rate |
+| **Validity** | Types, formats, accepted ranges (order_total ≥ 0) |
+| **Uniqueness** | Primary keys actually unique (JOIN fan-out is the classic silent killer) |
+| **Consistency** | Totals reconcile across systems (warehouse revenue = billing system ± tolerance) |
+| **Accuracy** | Matches reality — hardest; needs reference data or human sampling |
+
+## The defense layers
+
+1. **Contracts at the boundary**: schema + semantics + SLA agreed with producers; violations rejected or quarantined at [ingestion](data-ingestion.md), not discovered downstream ([data-mesh.md](data-mesh.md)).
+2. **Tests in transformation**: assertions as code between every layer — uniqueness, not-null, referential integrity, reconciliations — blocking bad builds ([data-transformation.md](data-transformation.md)).
+3. **Observability over what tests miss**: anomaly detection on volumes, distributions, freshness across the estate (Monte Carlo-class tools, or built); tests catch what you predicted, monitoring catches what you didn't.
+4. **Incident process**: quality failures get severity levels, owners, comms to affected consumers (via [lineage](data-catalog-and-lineage.md)), and post-mortems — like production outages, because they are.
+
+## Quality for AI consumers
+
+- **Training/feature data**: point-in-time correctness (no future leakage — [feature-stores.md](feature-stores.md)), label quality, dedup, eval-set decontamination ([mlops.md](mlops.md)).
+- **RAG corpora**: stale or duplicated documents get *retrieved and quoted*; curation, freshness expiry, and deletion propagation are quality work ([rag.md](rag.md)).
+- **LLM-generated data flowing back in**: schema-validate outputs, route low-confidence to review, mark provenance columns (model + prompt version), sample into evaluation ([llmops.md](llmops.md)) — treat the model as an untrusted upstream producer, contract and all.
+
+## Program advice
+
+- Score coverage on tier-1 assets first; a dashboard of *quality SLO compliance per domain* creates the right incentive gradient.
+- Every check needs an owner and an action; unowned alerts train people to ignore alerts.
+- Publish quality status into the [catalog](data-catalog-and-lineage.md) so trust is visible at the point of discovery.
+
+## Related
+
+- [data-governance.md](data-governance.md)
+- [data-transformation.md](data-transformation.md)
+- [data-catalog-and-lineage.md](data-catalog-and-lineage.md)

@@ -1,62 +1,46 @@
 ---
-title: Data governance for AI
-category: data-platform
+title: Data governance
+category: governance-quality
 updated: 2026-07-12
 ---
 
-# Data governance for AI
+# Data governance
 
-LLM systems stress-test governance because they **move data across boundaries by design**: documents flow into prompts, prompts flow to model providers, outputs flow back to users who may not have had access to the sources. Governance for AI = classic data governance + prompt/output controls.
+**Data governance** is the system of ownership, policy, and control that makes data trustworthy and its use defensible: who owns each dataset, who may access it, what it means, how long it lives, and how you prove all of that to an auditor. Done well it's an enablement layer — people find and use data *faster* because the rules are encoded, not tribal.
 
-## The new data flows to govern
+## The pillars
 
-```
-source docs ──> vector index ──> retrieved context ──> prompt ──> model provider
-                                                          │
-user input ───────────────────────────────────────────────┘──> output ──> user / downstream tables
-```
+| Pillar | Question it answers | Machinery |
+|---|---|---|
+| **Ownership** | Who is accountable for this dataset? | Owner metadata on every asset; escalation paths |
+| **Classification** | How sensitive is it? | Tags (public/internal/confidential/PII) applied at [ingestion](data-ingestion.md), inherited through [lineage](data-catalog-and-lineage.md) |
+| **Access control** | Who can see/change it? | Role/attribute-based grants, row/column policies ([security](data-security-and-privacy.md)) |
+| **Meaning** | What does this column/metric mean? | [Catalog](data-catalog-and-lineage.md) docs, [semantic layer](semantic-layer.md) definitions |
+| **Quality** | Can I trust it? | Tests, SLOs, incident process ([data-quality.md](data-quality.md)) |
+| **Lifecycle** | How long is it kept? Where? | Retention schedules, residency rules, deletion workflows |
 
-Each arrow is a policy point: what may cross, who may trigger it, and what gets logged.
+## Regulatory floor (2026)
 
-## Core controls
+GDPR/CCPA-family laws (consent, purpose limitation, **right to erasure** — which must propagate to derived tables, caches, and [AI indexes](llms-on-the-platform.md)), sector rules (HIPAA, PCI, SOX/FINRA), and the **EU AI Act** layering obligations on AI systems: data documentation, risk tiers, transparency. The platform implication is always the same: you need *lineage* (what feeds what), *classification* (what's sensitive), and *auditable access logs* — build them once, satisfy many regimes.
 
-### Access control propagation
-The most common failure: documents with restricted ACLs get embedded into a shared index, and retrieval leaks them to anyone who asks. Rules:
+## Governance for AI consumers, specifically
 
-- Mirror source ACLs as metadata on every chunk; **enforce filters at query time in the retrieval layer** ([vector DB](vector-databases.md)) — never rely on the model to withhold information.
-- Re-sync ACL changes with the same freshness SLO as content changes; a revoked permission must revoke retrieval.
-- For coarse cases, segregate indexes per sensitivity tier or tenant.
+AI systems stress governance because they move data across boundaries at runtime:
 
-### Classification & PII handling
-- Run classification/PII detection at ingestion ([pipeline](data-pipelines-for-llms.md) enrich stage): detect, then **block, mask, or tokenize** per policy before anything is embedded — embeddings of PII are still governed data (and text is partially recoverable from vectors).
-- Apply the same scanning to **prompts and outputs** at the gateway if users can paste arbitrary content.
+- Documents flow into prompts and [RAG indexes](rag.md) — source ACLs must propagate to retrieval, enforced at query time, never delegated to the model.
+- [Agents](agents-and-mcp.md) act with tool credentials — scope them to the *end user's* permissions.
+- Model providers are data processors — approved-provider lists per data classification, no-training terms, region pinning.
+- LLM-derived columns need provenance (model + prompt version) so they can be recomputed or excluded ([data-quality.md](data-quality.md)).
 
-### Provider & residency policy
-- Decide which data classes may be sent to which model providers (external API vs. VPC-hosted vs. self-hosted — see [build vs. buy](build-vs-buy.md)).
-- Verify provider terms: retention period, training-on-your-data (should be off), region pinning.
+## Making it real (not a binder)
 
-### Lineage & provenance
-- Track lineage for derived stores: which sources feed which indexes feed which applications. "Delete this document everywhere" must be answerable ([right-to-erasure](data-pipelines-for-llms.md) requires deletion propagation to indexes and caches).
-- Mark LLM-generated fields in the warehouse with model/prompt version ([quality](data-quality-and-curation.md)).
-
-### Audit logging
-Log per request: user, application, prompt (or its hash where content is too sensitive), retrieved document IDs, model + version, output, cost. This is the substrate for [monitoring](monitoring-and-observability.md), incident response, and compliance review. Define retention for the logs themselves — they now contain the sensitive data too.
-
-## Regulatory context (as of 2026)
-
-- **GDPR/CCPA**: right to erasure extends to derived stores (indexes, caches, fine-tuned models are a hard case — often the answer is retraining or filtering).
-- **EU AI Act**: risk-tiered obligations; most internal data-platform assistants are limited/minimal risk but require transparency; keep model and data documentation.
-- Sector rules (HIPAA, PCI, FINRA) apply to prompts/outputs exactly as to any data movement.
-
-## Practical starting point
-
-1. Stand up an **LLM gateway** (single egress point) so policy is enforceable in one place ([reference architecture](reference-architecture.md)).
-2. Classify sources before ingestion; start with public/internal-only corpora.
-3. Implement ACL-filtered retrieval before launch, not after the first leak.
-4. Turn on full audit logging from day one.
+- **Policy as code**: access rules, retention, and masking declared in version-controlled config, applied by the platform — not ticket-driven grants that drift.
+- **Federated model**: central team sets standards and runs shared tooling; domain teams own their data's classification, quality, and access decisions ([data-mesh.md](data-mesh.md)).
+- **Tier your effort**: tier-1 (regulatory, executive-facing, AI-feeding) assets get full rigor; long-tail exploration gets defaults. Uniform maximal governance guarantees circumvention.
+- **Measure it**: % assets with owners, classification coverage, access-review completion, time-to-grant. Governance without metrics is vibes.
 
 ## Related
 
-- [Security & privacy](security-and-privacy.md)
-- [Data quality & curation](data-quality-and-curation.md)
-- [Monitoring & observability](monitoring-and-observability.md)
+- [data-catalog-and-lineage.md](data-catalog-and-lineage.md)
+- [data-security-and-privacy.md](data-security-and-privacy.md)
+- [data-quality.md](data-quality.md)

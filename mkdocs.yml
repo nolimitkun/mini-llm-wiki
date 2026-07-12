@@ -1,5 +1,5 @@
-site_name: Mini LLM Wiki — Data & AI Platform
-site_description: An agent-maintained LLM knowledge base for data & AI platform teams
+site_name: Mini Data/AI Platform Wiki
+site_description: An agent-maintained knowledge base about data & AI platforms
 docs_dir: docs        # staged by scripts/stage-docs.sh from the repo root
 site_dir: site
 
@@ -38,41 +38,44 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Fundamentals:
-      - What is an LLM?: pages/what-is-an-llm.md
-      - Transformer architecture: pages/transformer-architecture.md
-      - Tokenization: pages/tokenization.md
-      - Embeddings: pages/embeddings.md
-      - Context windows: pages/context-windows.md
-  - Data platform:
-      - Data pipelines for LLMs: pages/data-pipelines-for-llms.md
-      - Vector databases: pages/vector-databases.md
-      - Data quality & curation: pages/data-quality-and-curation.md
+      - What is a data platform?: pages/what-is-a-data-platform.md
+      - OLTP vs. OLAP: pages/oltp-vs-olap.md
+      - Batch vs. streaming: pages/batch-vs-streaming.md
+  - Storage:
+      - Data warehouse: pages/data-warehouse.md
+      - Data lake: pages/data-lake.md
+      - Lakehouse: pages/lakehouse.md
+      - Table & file formats: pages/table-and-file-formats.md
+  - Ingestion & processing:
+      - Data ingestion: pages/data-ingestion.md
+      - Data transformation: pages/data-transformation.md
+      - Orchestration: pages/orchestration.md
+      - Stream processing: pages/stream-processing.md
+  - Modeling & serving:
+      - Data modeling: pages/data-modeling.md
+      - Semantic layer: pages/semantic-layer.md
+      - Query engines: pages/query-engines.md
+  - Governance & quality:
       - Data governance: pages/data-governance.md
-  - RAG:
-      - Overview: pages/rag-overview.md
-      - Chunking strategies: pages/chunking-strategies.md
-      - Retrieval techniques: pages/retrieval-techniques.md
-      - Evaluation: pages/rag-evaluation.md
-  - Training & adaptation:
-      - Pretraining: pages/pretraining.md
-      - Fine-tuning: pages/fine-tuning.md
-      - Alignment: pages/alignment.md
-  - Inference & serving:
+      - Catalog & lineage: pages/data-catalog-and-lineage.md
+      - Data quality: pages/data-quality.md
+      - Security & privacy: pages/data-security-and-privacy.md
+  - ML platform:
+      - Overview: pages/ml-platform-overview.md
+      - Feature stores: pages/feature-stores.md
       - Model serving: pages/model-serving.md
-      - Inference optimization: pages/inference-optimization.md
-      - Cost optimization: pages/cost-optimization.md
-  - LLMOps:
-      - Overview: pages/llmops-overview.md
-      - Evaluation: pages/evaluation.md
-      - Monitoring & observability: pages/monitoring-and-observability.md
-      - Prompt management: pages/prompt-management.md
-  - Agents & integration:
-      - LLM agents: pages/agents.md
-      - Tool use: pages/tool-use.md
-      - MCP: pages/mcp.md
+      - MLOps: pages/mlops.md
+  - GenAI platform:
+      - LLMs on the platform: pages/llms-on-the-platform.md
+      - Embeddings: pages/embeddings.md
+      - Vector databases: pages/vector-databases.md
+      - RAG: pages/rag.md
+      - LLMOps: pages/llmops.md
+      - Agents & MCP: pages/agents-and-mcp.md
   - Platform architecture:
       - Reference architecture: pages/reference-architecture.md
+      - Data mesh: pages/data-mesh.md
       - Build vs. buy: pages/build-vs-buy.md
-      - Security & privacy: pages/security-and-privacy.md
+      - FinOps: pages/finops.md
   - Glossary: pages/glossary.md
   - Log: log.md

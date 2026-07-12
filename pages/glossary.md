@@ -10,43 +10,46 @@ Quick definitions with links to the full pages.
 
 | Term | Definition |
 |---|---|
-| **Agent** | LLM in a loop that chooses tools/actions until a goal is met → [agents](agents.md) |
-| **Alignment** | Post-training that makes a model helpful/safe (SFT, RLHF, DPO) → [alignment](alignment.md) |
-| **ANN** | Approximate nearest neighbor — fast similarity search over vectors → [vector databases](vector-databases.md) |
-| **BM25** | Classic keyword-ranking algorithm; the "sparse" half of hybrid search → [retrieval](retrieval-techniques.md) |
-| **Chunking** | Splitting documents into retrieval units → [chunking](chunking-strategies.md) |
-| **Context window** | Max tokens a model processes per request → [context windows](context-windows.md) |
-| **Continuous batching** | Serving technique admitting new requests every decode step → [serving](model-serving.md) |
-| **Cross-encoder / reranker** | Model scoring query–document pairs jointly for precise ranking → [retrieval](retrieval-techniques.md) |
-| **Distillation** | Training a small model on a large model's outputs → [fine-tuning](fine-tuning.md) |
-| **DPO** | Direct Preference Optimization — preference tuning without a reward model → [alignment](alignment.md) |
-| **Embedding** | Dense vector representing meaning; enables semantic similarity → [embeddings](embeddings.md) |
-| **Faithfulness / groundedness** | Whether an answer's claims are supported by the provided context → [RAG evaluation](rag-evaluation.md) |
-| **Fine-tuning** | Continuing training on your examples to change model behavior → [fine-tuning](fine-tuning.md) |
-| **Function calling** | Model emits structured calls your code executes → [tool use](tool-use.md) |
-| **Guardrails** | Input/output/action policy checks around the model → [security](security-and-privacy.md) |
-| **Hallucination** | Confident output unsupported by training data or context → [what is an LLM](what-is-an-llm.md) |
-| **HNSW** | Graph-based ANN index; the common default → [vector databases](vector-databases.md) |
-| **Hybrid search** | Vector + keyword retrieval fused (e.g., RRF) → [retrieval](retrieval-techniques.md) |
-| **KV cache** | Cached attention keys/values; dominates serving memory → [inference optimization](inference-optimization.md) |
-| **LLM gateway** | Single proxy for all model traffic: auth, routing, logging, guardrails → [reference architecture](reference-architecture.md) |
-| **LLM-as-judge** | Using a strong LLM to score outputs against a rubric → [evaluation](evaluation.md) |
-| **LLMOps** | Operational discipline for LLM systems → [LLMOps overview](llmops-overview.md) |
-| **LoRA / QLoRA** | Parameter-efficient fine-tuning via small adapter matrices → [fine-tuning](fine-tuning.md) |
-| **MCP** | Model Context Protocol — standard for connecting AI apps to tools/data → [MCP](mcp.md) |
-| **MoE** | Mixture-of-Experts — routed MLPs for more capacity per FLOP → [transformer](transformer-architecture.md) |
-| **Prefill / decode** | The two inference phases: prompt processing vs. token-by-token generation → [serving](model-serving.md) |
-| **Prompt caching** | Provider discount for reused prompt prefixes → [cost](cost-optimization.md) |
-| **Prompt injection** | Attack embedding instructions in content the model reads → [security](security-and-privacy.md) |
-| **Quantization** | Lower-precision weights/cache for memory & speed → [inference optimization](inference-optimization.md) |
-| **RAG** | Retrieval-Augmented Generation — retrieve context, then generate → [RAG overview](rag-overview.md) |
-| **Recall@k** | Fraction of needed content present in top-k retrieval → [RAG evaluation](rag-evaluation.md) |
-| **RLHF** | Reinforcement Learning from Human Feedback → [alignment](alignment.md) |
-| **RRF** | Reciprocal Rank Fusion — simple method to merge ranked lists → [retrieval](retrieval-techniques.md) |
-| **Semantic layer** | Governed business definitions (metrics, dimensions); key for text-to-SQL → [agents](agents.md) |
-| **Speculative decoding** | Draft-then-verify generation for 2–3× decode speedup → [inference optimization](inference-optimization.md) |
-| **Structured output** | Constraining generation to a schema (JSON) → [tool use](tool-use.md) |
-| **Temperature** | Sampling randomness knob; 0 ≈ deterministic-ish → [what is an LLM](what-is-an-llm.md) |
-| **Token** | Subword unit models actually process; the billing & capacity unit → [tokenization](tokenization.md) |
-| **TTFT / TPOT** | Time-to-first-token / time-per-output-token latency metrics → [serving](model-serving.md) |
-| **Vector database** | Store + ANN index for embeddings → [vector databases](vector-databases.md) |
+| **ACID** | Atomic, consistent, isolated, durable transactions — brought to the lake by [table formats](table-and-file-formats.md) |
+| **Agent** | LLM in a loop choosing tools/actions until a goal is met → [agents-and-mcp.md](agents-and-mcp.md) |
+| **ANN** | Approximate nearest neighbor — fast vector similarity search → [vector-databases.md](vector-databases.md) |
+| **Batch scoring** | Scheduled model predictions written to a table → [model-serving.md](model-serving.md) |
+| **CDC** | Change data capture — replicating a database via its write-ahead log → [data-ingestion.md](data-ingestion.md) |
+| **Columnar storage** | Values stored column-by-column; the reason analytics is fast → [oltp-vs-olap.md](oltp-vs-olap.md) |
+| **Compaction** | Merging small files into scan-efficient large ones → [table-and-file-formats.md](table-and-file-formats.md) |
+| **Data contract** | Agreed schema + semantics + SLA at a team boundary → [data-mesh.md](data-mesh.md) |
+| **Data mesh** | Domain teams own data as products on a shared platform → [data-mesh.md](data-mesh.md) |
+| **Data product** | Dataset with an owner, docs, SLOs, and consumers treated as customers → [data-mesh.md](data-mesh.md) |
+| **Data swamp** | Ungoverned lake: undocumented, unowned, untrusted → [data-lake.md](data-lake.md) |
+| **Dimensional model** | Facts + dimensions (star schema) for analytics → [data-modeling.md](data-modeling.md) |
+| **ELT** | Land raw, transform inside the platform (vs. ETL's transform-first) → [data-ingestion.md](data-ingestion.md) |
+| **Embedding** | Dense vector representing meaning; enables semantic search → [embeddings.md](embeddings.md) |
+| **Event time vs. processing time** | When it happened vs. when the system saw it → [stream-processing.md](stream-processing.md) |
+| **Feature store** | One feature definition, served consistently offline (training) and online (inference) → [feature-stores.md](feature-stores.md) |
+| **Grain** | What one row of a fact table represents → [data-modeling.md](data-modeling.md) |
+| **Hybrid search** | Vector + keyword retrieval fused → [rag.md](rag.md) |
+| **Iceberg / Delta / Hudi** | Open table formats → [table-and-file-formats.md](table-and-file-formats.md) |
+| **Idempotency** | Reruns produce the same result — the first law of pipelines → [data-ingestion.md](data-ingestion.md) |
+| **Lakehouse** | Warehouse guarantees on open lake storage → [lakehouse.md](lakehouse.md) |
+| **Lineage** | The graph of what feeds what, source → dashboard/model/index → [data-catalog-and-lineage.md](data-catalog-and-lineage.md) |
+| **LLM gateway** | Single proxy for model traffic: auth, quotas, routing, logging → [llms-on-the-platform.md](llms-on-the-platform.md) |
+| **LLM-as-judge** | A strong model scoring outputs against a rubric → [llmops.md](llmops.md) |
+| **MCP** | Model Context Protocol — standard connecting AI apps to tools/data → [agents-and-mcp.md](agents-and-mcp.md) |
+| **Medallion / zones** | raw → refined → curated refinement layers → [data-lake.md](data-lake.md) |
+| **MPP** | Massively parallel processing — queries fanned across nodes → [data-warehouse.md](data-warehouse.md) |
+| **OLTP / OLAP** | Transaction processing vs. analytical processing → [oltp-vs-olap.md](oltp-vs-olap.md) |
+| **OpenLineage** | Exchange standard for lineage metadata → [data-catalog-and-lineage.md](data-catalog-and-lineage.md) |
+| **Parquet** | The default columnar file format → [table-and-file-formats.md](table-and-file-formats.md) |
+| **Point-in-time correctness** | Training data as-of the label's timestamp; no future leakage → [feature-stores.md](feature-stores.md) |
+| **Predicate pushdown** | Engine skips files/row-groups via statistics → [query-engines.md](query-engines.md) |
+| **Prompt injection** | Hostile instructions embedded in content a model reads → [data-security-and-privacy.md](data-security-and-privacy.md) |
+| **RAG** | Retrieval-Augmented Generation — retrieve context, then generate → [rag.md](rag.md) |
+| **Reverse ETL** | Pushing analytical results back into operational tools → [oltp-vs-olap.md](oltp-vs-olap.md) |
+| **Right to erasure** | Legal deletion that must propagate to all derived stores → [data-governance.md](data-governance.md) |
+| **SCD** | Slowly changing dimensions — how history is kept when attributes change → [data-modeling.md](data-modeling.md) |
+| **Schema-on-read / on-write** | Type at query time (lake) vs. at load time (warehouse) → [data-lake.md](data-lake.md) |
+| **Semantic layer** | Governed, reusable metric definitions → [semantic-layer.md](semantic-layer.md) |
+| **Time travel** | Querying a table as of a past snapshot → [table-and-file-formats.md](table-and-file-formats.md) |
+| **Token** | Subword unit LLMs process; the unit of AI cost → [llms-on-the-platform.md](llms-on-the-platform.md) |
+| **Training/serving skew** | Feature computed differently in training vs. production → [feature-stores.md](feature-stores.md) |
+| **Watermark** | Streaming's "probably seen everything up to time T" marker → [stream-processing.md](stream-processing.md) |

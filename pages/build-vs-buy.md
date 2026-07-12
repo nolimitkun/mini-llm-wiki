@@ -1,55 +1,47 @@
 ---
-title: Build vs. buy decisions
+title: Build vs. buy
 category: platform-architecture
 updated: 2026-07-12
 ---
 
-# Build vs. buy decisions
+# Build vs. buy
 
-LLM platforms involve a stack of build-vs-buy choices, each with its own economics. The recurring theme: **buy models, build the integration to your data, and keep the switching costs low.**
+Every layer of the platform is a build/buy/adopt-OSS decision. The recurring principle: **buy commodity capabilities, build what differentiates you, and keep switching costs low** — the data/AI market shifts fast enough that reversibility is worth real architectural effort.
 
-## Decision 1: Model — API vs. self-hosted open weights
+## Layer-by-layer defaults
 
-| Factor | Provider API | Self-hosted open weights |
+| Layer | Default | Reasoning |
 |---|---|---|
-| Quality ceiling | Frontier | 6–18 months behind frontier; sufficient for many tasks |
-| Cost profile | Per-token; zero at zero usage | GPUs + engineers; cheaper only at sustained high utilization |
-| Data control | Data leaves your boundary (VPC offerings narrow this) | Full control ([governance](data-governance.md)) |
-| Ops burden | None | [Serving](model-serving.md), upgrades, capacity, on-call |
-| Customization | Prompting, provider fine-tune APIs | Full [fine-tuning](fine-tuning.md), quantization, any adapter |
+| [Ingestion](data-ingestion.md) connectors | **Buy/OSS** (Fivetran, Airbyte) | SaaS API churn makes homegrown connectors a maintenance tarpit; build only proprietary-source ones |
+| [Storage](lakehouse.md) | Cloud object storage + **open table formats** | Openness *is* the exit strategy; the catalog is where lock-in now lives — negotiate it consciously |
+| [Transformation](data-transformation.md) | **OSS framework** (dbt-class) | Your models are yours; the framework is commodity |
+| [Orchestration](orchestration.md) | **OSS/managed** (Airflow/Dagster-class) | Building a scheduler is a rite of passage nobody should complete |
+| [Catalog/governance](data-catalog-and-lineage.md) | Buy or OSS; demand **OpenLineage** export | Value is in adoption, not code; metadata must outlive the vendor |
+| [ML platform](ml-platform-overview.md) | Managed suite early; compose as needs sharpen | Suites integrate; composition avoids ceiling-lock |
+| BI / horizontal AI apps | **Buy** | Vendors iterate faster than you on generic surfaces |
+| Your data products, models, [semantic layer](semantic-layer.md) definitions, domain AI apps | **Build** | This is the differentiation the rest exists to serve |
 
-Practical guidance:
+## The GenAI-specific decision: models
 
-- **Default: start with APIs.** Time-to-value dominates early; usage data tells you where self-hosting would pay.
-- Self-hosting earns its keep when: strict data-residency rules API/VPC offerings can't meet, **sustained** high-volume narrow tasks (classification/extraction at millions of calls/day), or latency needs requiring co-location.
-- The middle path many enterprises land on: **cloud-managed open/frontier models in your VPC** (Bedrock, Vertex, Azure) — provider-grade ops with tighter data boundaries.
-- Whatever you choose, the [gateway](reference-architecture.md) keeps applications model-agnostic so the decision stays reversible. **Avoiding lock-in is worth real architectural effort; model quality-per-dollar shifts every quarter.**
+- **Default: provider APIs** behind a gateway — zero infra, frontier quality, usage-based cost.
+- **Middle path** (most regulated enterprises): cloud-managed models in your VPC (Bedrock/Vertex/Azure) — provider ops, tighter data boundary ([data-governance.md](data-governance.md)).
+- **Self-host open weights** only for: residency rules APIs can't meet, sustained high-volume narrow tasks where the GPU math genuinely wins, or latency requiring co-location — and price in the ops ([model-serving.md](model-serving.md)).
+- Keep it reversible: the gateway abstracts providers; quality-per-dollar rankings change quarterly.
 
-## Decision 2: Vector store
+## The TCO traps (what "build" spreadsheets omit)
 
-Covered in [vector databases](vector-databases.md) — short version: extend what you run (pgvector/OpenSearch) until scale or feature needs force a dedicated engine.
+- Maintenance is 3–5× initial build over five years; the builder's promotion is not transferable to the maintainer's motivation.
+- Integration cost: a "cheaper" tool that fights your stack costs the difference in glue.
+- Utilization reality: self-hosted GPU math at 80% utilization, actual 20–40%.
+- Ongoing evaluation/curation for AI systems (eval sets, corpus maintenance) — never one-time.
+- Exit cost: price the *leaving*, not just the entering — data egress, rewrite scope, retraining.
 
-## Decision 3: LLMOps tooling
+## A usable rubric
 
-Eval/tracing/prompt-registry tools (LangSmith, Langfuse, Arize, W&B) are cheap relative to building; **buy or adopt OSS**, but insist on OpenTelemetry-compatible export so the data outlives the vendor. Build only the thin glue to your CI and data stack.
-
-## Decision 4: End applications
-
-- **Buy** horizontal assistants (coding copilots, meeting summarizers, enterprise-search products) — vendors iterate faster than you will.
-- **Build** where your differentiation lives: assistants over *your* proprietary data and workflows, LLM steps inside *your* [pipelines](data-pipelines-for-llms.md). This is also where your platform investments (retrieval service, governance) compound.
-
-## The TCO trap checklist
-
-Costs commonly missed when the spreadsheet says "build":
-
-- Eval-set creation and continuous maintenance (ongoing, not one-time)
-- Model deprecation treadmill (re-tune, re-eval, re-embed on every forced upgrade)
-- GPU utilization reality (self-host math at 80% utilization, reality often 20–40%)
-- Guardrail/security engineering and incident response
-- The second and third use cases: platforms pay off across many; single-use "platforms" don't
+Build only if **all four**: (1) core to differentiation, (2) no adequate product exists, (3) you'll fund maintenance indefinitely, (4) you'd hire for it anyway. Otherwise buy/adopt — and spend the saved engineering on your data models, which no vendor can sell you.
 
 ## Related
 
-- [Reference architecture](reference-architecture.md)
-- [Cost optimization](cost-optimization.md)
-- [Model serving](model-serving.md)
+- [reference-architecture.md](reference-architecture.md)
+- [finops.md](finops.md)
+- [llms-on-the-platform.md](llms-on-the-platform.md)

@@ -1,6 +1,6 @@
 # Wiki schema
 
-This repository is an **agent-maintained wiki** about LLMs on data/AI platforms, following the pattern in [Karpathy's llm-wiki gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f): raw sources are immutable, the wiki is the LLM-curated layer on top, and this file is the schema that tells the agent (you) how to maintain it.
+This repository is an **agent-maintained wiki** about **data & AI platforms** — storage, pipelines, modeling, governance, ML infrastructure, and the GenAI layer on top — following the pattern in [Karpathy's llm-wiki gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f): raw sources are immutable, the wiki is the LLM-curated layer on top, and this file is the schema that tells the agent (you) how to maintain it.
 
 ## Layout
 
@@ -22,7 +22,7 @@ mkdocs.yml     ← optional site rendering
   ```yaml
   ---
   title: Vector databases
-  category: data-platform        # one of the categories in index.md
+  category: genai-platform       # one of the categories in index.md
   updated: YYYY-MM-DD            # bump on any substantive edit
   sources: [sources/foo.pdf]     # optional: raw sources this page draws on
   ---
@@ -31,7 +31,7 @@ mkdocs.yml     ← optional site rendering
 - Body: `# Title`, a one-paragraph definition first (it doubles as the index summary), then the substance. Target under ~150 lines; split pages that outgrow it.
 - **Cross-link aggressively** — links are the wiki's value. Pages are siblings, so link with the bare filename: `embeddings.md`. Every page ends with a `## Related` section (2–4 links).
 - Prefer vendor-neutral explanations; name specific tools only in clearly-scoped comparison tables or "Tooling" notes.
-- Categories: `fundamentals`, `data-platform`, `rag`, `training-adaptation`, `inference-serving`, `llmops`, `agents-integration`, `platform-architecture`, `reference`. Add a new category only when several pages don't fit existing ones; update index.md headings when you do.
+- Categories: `fundamentals`, `storage`, `ingestion-processing`, `modeling-serving`, `governance-quality`, `ml-platform`, `genai-platform`, `platform-architecture`, `reference`. Add a new category only when several pages don't fit existing ones; update index.md headings when you do.
 
 ## Workflows
 

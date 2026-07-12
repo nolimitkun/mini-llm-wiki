@@ -6,63 +6,57 @@ updated: 2026-07-12
 
 # Reference architecture
 
-A composable architecture for running LLM workloads on an enterprise data/AI platform. The parts are independent — adopt the gateway first, grow the rest as usage matures.
+A composable architecture for a modern data/AI platform. Layers are independent — adopt incrementally, and treat every box as swappable behind its interface ([build-vs-buy.md](build-vs-buy.md)).
 
 ## The big picture
 
 ```
-┌───────────────────────────── applications ─────────────────────────────┐
-│  chat assistants │ copilots │ agents │ pipeline jobs (extract/classify) │
-└────────┬────────────────────────────────────────────────────┬──────────┘
-         │                                                    │
-┌────────▼──────────────┐                        ┌────────────▼──────────┐
-│   LLM GATEWAY         │                        │  RETRIEVAL SERVICE     │
-│ auth / quotas /       │                        │ query processing,      │
-│ routing / caching /   │                        │ hybrid search, rerank, │
-│ guardrails / logging  │                        │ ACL filtering          │
-└────────┬──────────────┘                        └────────────┬──────────┘
-         │                                                    │
-┌────────▼──────────────┐    ┌───────────────┐   ┌────────────▼──────────┐
-│  MODEL LAYER          │    │  LLMOPS       │   │  KNOWLEDGE LAYER       │
-│ provider APIs,        │    │ eval harness, │   │ vector DB + keyword    │
-│ self-hosted (vLLM),   │    │ tracing,      │   │ index, doc store,      │
-│ fine-tuned variants   │    │ prompt reg.,  │   │ embedding pipelines    │
-└───────────────────────┘    │ dashboards    │   └────────────┬──────────┘
-                             └───────────────┘   ┌────────────▼──────────┐
-                                                 │  DATA PLATFORM         │
-                                                 │ lake/warehouse, source │
-                                                 │ connectors, orchestr., │
-                                                 │ catalog & lineage      │
-                                                 └───────────────────────┘
+┌────────────────────────── consumers ───────────────────────────┐
+│ BI & dashboards │ notebooks │ data apps │ ML models │ AI agents │
+└──────┬──────────────┬─────────────────┬──────────────┬─────────┘
+       │              │                 │              │
+┌──────▼──────────────▼─────┐  ┌────────▼──────────────▼────────┐
+│ SERVING & SEMANTICS       │  │ ML / GENAI LAYER               │
+│ semantic layer, marts,    │  │ feature store, training, model │
+│ query engines, real-time  │  │ registry & serving, LLM        │
+│ OLAP, data APIs           │  │ gateway, RAG/vector indexes    │
+└──────┬────────────────────┘  └────────┬───────────────────────┘
+       │                                │
+┌──────▼────────────────────────────────▼───────────────────────┐
+│ PROCESSING          transformations-as-code, batch & stream,  │
+│                     orchestration                             │
+├────────────────────────────────────────────────────────────────┤
+│ STORAGE             lakehouse: object storage + open table    │
+│                     formats + catalog (warehouse as engine)   │
+├────────────────────────────────────────────────────────────────┤
+│ INGESTION           CDC, connectors, event streams, files     │
+└────────────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────┐
+│ CROSS-CUTTING: catalog & lineage · governance & access ·      │
+│ quality & observability · security · FinOps                   │
+└────────────────────────────────────────────────────────────────┘
 ```
 
-## Component responsibilities
+## Layer notes
 
-### LLM gateway — build this first
-Single egress point for all model traffic. Provides: authN/Z per app/team, **model routing** (task → model, failover, [cost-based routing](cost-optimization.md)), rate limiting & budgets, prompt/response **caching**, [guardrails](security-and-privacy.md) (PII, injection screening), and full [audit logging](monitoring-and-observability.md). Options: LiteLLM, Portkey, Kong/cloud-native AI gateways, or a thin in-house proxy. Without a gateway, every one of these concerns is re-solved (badly) per team.
+- **Ingestion**: [CDC + connectors + streams](data-ingestion.md), landing raw into table-format tables from day one.
+- **Storage**: the [lakehouse](lakehouse.md) as the center of gravity — open [table formats](table-and-file-formats.md) on object storage; a [warehouse](data-warehouse.md) engine where price/performance earns it. The **catalog is the control point** — choose it as deliberately as the storage itself.
+- **Processing**: [transformations-as-code](data-transformation.md) with tests, [streaming](stream-processing.md) where freshness demands, all on one [orchestrator](orchestration.md).
+- **Serving & semantics**: [modeled marts](data-modeling.md), a [semantic layer](semantic-layer.md) as the single definition of metrics (and the AI-readiness investment), [engines](query-engines.md) matched to workload.
+- **ML/GenAI**: [feature store](feature-stores.md) and [model serving](model-serving.md) on the shared spine; an **LLM gateway** (auth, quotas, routing, caching, logging) as single egress for model traffic; [RAG indexes](rag.md) as derived, rebuildable stores; platform data exposed to agents via [MCP](agents-and-mcp.md).
+- **Cross-cutting**: [catalog/lineage](data-catalog-and-lineage.md), [governance](data-governance.md), [quality](data-quality.md), [security](data-security-and-privacy.md), [FinOps](finops.md) — these are what make it a platform rather than a tool pile.
 
-### Model layer
-Provider APIs, self-hosted open weights ([serving](model-serving.md)), and [fine-tuned](fine-tuning.md) variants — all behind the gateway so applications are model-agnostic. Keep a model registry: which versions are approved, for which data classes ([governance](data-governance.md)).
+## Build order
 
-### Knowledge layer
-[Vector + keyword indexes](vector-databases.md) fed by [ingestion pipelines](data-pipelines-for-llms.md), with a **retrieval service** ([techniques](retrieval-techniques.md)) exposing search-as-an-API so every application gets hybrid search, reranking, and **ACL filtering** without reimplementing them. Expose it to agents via [MCP](mcp.md).
+1. **The analytics spine**: ingestion → lakehouse → tested transformations → BI. Boring excellence here funds everything else.
+2. **Cross-cutting basics**: catalog with owners, quality tests on tier-1, access control model.
+3. **ML capabilities** as use cases mature (registry, serving, features).
+4. **GenAI layer**: gateway first (control + visibility), then one RAG use case end-to-end with evaluation, then agents via MCP with least-privilege tooling.
 
-### LLMOps layer
-[Eval harness](evaluation.md) wired into CI, [tracing/monitoring](monitoring-and-observability.md), [prompt registry](prompt-management.md), cost dashboards.
-
-### Data platform (the foundation you already have)
-Warehouse/lake as source of truth, orchestrator running embedding and enrichment jobs, catalog providing the metadata that powers retrieval filters and text-to-SQL, lineage extended to cover derived AI stores.
-
-## Adoption sequence
-
-1. **Gateway + logging + budgets** — control and visibility before anything scales.
-2. **First RAG use case end-to-end** — one corpus, one app, with an eval set from day one.
-3. **Shared retrieval service** — when the second and third use cases arrive, extract the common pipeline.
-4. **Eval-gated CI + guardrails hardening** — before high-stakes or external-facing launches.
-5. **Routing/cost optimization, fine-tuning, agents** — maturity features once fundamentals hold.
+Each stage reuses the previous — a GenAI initiative on a weak data foundation just discovers the foundation's problems at higher speed and cost.
 
 ## Related
 
-- [Build vs. buy](build-vs-buy.md)
-- [Security & privacy](security-and-privacy.md)
-- [LLMOps overview](llmops-overview.md)
+- [what-is-a-data-platform.md](what-is-a-data-platform.md)
+- [lakehouse.md](lakehouse.md)
+- [build-vs-buy.md](build-vs-buy.md)

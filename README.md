@@ -1,6 +1,6 @@
-# Mini LLM Wiki — Data & AI Platform Edition
+# Mini Data/AI Platform Wiki
 
-A practical knowledge base about LLMs on data/AI platforms, structured as an **agent-maintained wiki** following [Karpathy's llm-wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f): an LLM agent does the bookkeeping (filing, cross-referencing, linting) while humans direct and curate.
+A practical knowledge base about **data & AI platforms** — storage, pipelines, modeling, governance, ML infrastructure, and the GenAI layer on top — structured as an **agent-maintained wiki** following [Karpathy's llm-wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f): an LLM agent does the bookkeeping (filing, cross-referencing, linting) while humans direct and curate.
 
 ## How it's organized
 
@@ -13,6 +13,12 @@ A practical knowledge base about LLMs on data/AI platforms, structured as an **a
 | **[sources/](sources/README.md)** | Immutable raw material (papers, articles, notes) the pages draw on |
 
 The three-layer idea: **sources** are the authoritative raw ground truth, **pages** are the LLM-curated synthesis, and the **schema** keeps the agent's maintenance consistent. Categories live in page frontmatter and the index — not directory structure — so pages can be re-shelved without breaking links.
+
+## Coverage
+
+33 pages across 9 categories:
+
+**fundamentals** (what a platform is, OLTP/OLAP, batch/streaming) · **storage** (warehouse, lake, lakehouse, table formats) · **ingestion-processing** (ingestion, transformation, orchestration, streaming) · **modeling-serving** (data modeling, semantic layer, query engines) · **governance-quality** (governance, catalog & lineage, quality, security) · **ml-platform** (ML platform, feature stores, model serving, MLOps) · **genai-platform** (LLMs, embeddings, vector DBs, RAG, LLMOps, agents & MCP) · **platform-architecture** (reference architecture, data mesh, build-vs-buy, FinOps) · **reference** (glossary)
 
 ## Using it
 
@@ -35,7 +41,3 @@ mkdocs serve
 Every push to `main` also builds the site and deploys it to **GitHub Pages**
 via [`.github/workflows/deploy-docs.yml`](.github/workflows/deploy-docs.yml)
 (strict build — a broken link fails CI).
-
-## Coverage
-
-30 pages across: fundamentals · data-platform · rag · training-adaptation · inference-serving · llmops · agents-integration · platform-architecture · reference. See [index.md](index.md).
