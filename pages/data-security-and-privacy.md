@@ -36,7 +36,7 @@ AI consumers open genuinely new surfaces (detailed in [llmops.md](llmops.md) and
 
 - **Prompt injection**: content the model reads can steer its behavior — assume it succeeds; limit what the model/agent *can do* (least-privilege tools, approval gates, egress controls).
 - **Retrieval leaks**: [RAG](rag.md) over an index that ignored source ACLs is a breach generator — enforce permissions at query time in the retrieval layer.
-- **Provider egress**: prompts are data transfers; classify what may go to which model provider, log everything.
+- **Provider egress**: prompts are data transfers; classify what may go to which model provider, log everything. Sovereignty rules may force private serving for sensitive prompts ([hybrid-cloud.md](hybrid-cloud.md)).
 - **Model artifacts remember**: fine-tuned weights and embeddings derived from personal data are personal-data derivatives — govern and delete accordingly.
 
 ## Audit: the part that saves you later

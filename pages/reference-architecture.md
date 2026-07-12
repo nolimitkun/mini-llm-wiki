@@ -55,8 +55,12 @@ A composable architecture for a modern data/AI platform. Layers are independent 
 
 Each stage reuses the previous — a GenAI initiative on a weak data foundation just discovers the foundation's problems at higher speed and cost.
 
+## Deployment topology
+
+This architecture is placement-agnostic: all-in on one public cloud is the simplest case, but the same layers span private (on-prem) and public infrastructure — with open table formats and Kubernetes as the portability substrate, and governance/identity as the plane that must not split. See [hybrid-cloud.md](hybrid-cloud.md).
+
 ## Related
 
 - [what-is-a-data-platform.md](what-is-a-data-platform.md)
 - [lakehouse.md](lakehouse.md)
-- [build-vs-buy.md](build-vs-buy.md)
+- [hybrid-cloud.md](hybrid-cloud.md)

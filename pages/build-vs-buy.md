@@ -25,7 +25,7 @@ Every layer of the platform is a build/buy/adopt-OSS decision. The recurring pri
 
 - **Default: provider APIs** behind a gateway — zero infra, frontier quality, usage-based cost.
 - **Middle path** (most regulated enterprises): cloud-managed models in your VPC (Bedrock/Vertex/Azure) — provider ops, tighter data boundary ([data-governance.md](data-governance.md)).
-- **Self-host open weights** only for: residency rules APIs can't meet, sustained high-volume narrow tasks where the GPU math genuinely wins, or latency requiring co-location — and price in the ops ([model-serving.md](model-serving.md)).
+- **Self-host open weights** only for: residency rules APIs can't meet, sustained high-volume narrow tasks where the GPU math genuinely wins, or latency requiring co-location — and price in the ops ([model-serving.md](model-serving.md)). Placement across private/public infrastructure is its own decision — [hybrid-cloud.md](hybrid-cloud.md).
 - Keep it reversible: the gateway abstracts providers; quality-per-dollar rankings change quarterly.
 
 ## The TCO traps (what "build" spreadsheets omit)

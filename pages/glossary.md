@@ -18,6 +18,7 @@ Quick definitions with links to the full pages.
 | **Columnar storage** | Values stored column-by-column; the reason analytics is fast → [oltp-vs-olap.md](oltp-vs-olap.md) |
 | **Compaction** | Merging small files into scan-efficient large ones → [table-and-file-formats.md](table-and-file-formats.md) |
 | **Data contract** | Agreed schema + semantics + SLA at a team boundary → [data-mesh.md](data-mesh.md) |
+| **Data gravity** | Large data attracts compute to it; moving it costs more than computing in place → [hybrid-cloud.md](hybrid-cloud.md) |
 | **Data mesh** | Domain teams own data as products on a shared platform → [data-mesh.md](data-mesh.md) |
 | **Data product** | Dataset with an owner, docs, SLOs, and consumers treated as customers → [data-mesh.md](data-mesh.md) |
 | **Data swamp** | Ungoverned lake: undocumented, unowned, untrusted → [data-lake.md](data-lake.md) |
@@ -44,6 +45,7 @@ Quick definitions with links to the full pages.
 | **Predicate pushdown** | Engine skips files/row-groups via statistics → [query-engines.md](query-engines.md) |
 | **Prompt injection** | Hostile instructions embedded in content a model reads → [data-security-and-privacy.md](data-security-and-privacy.md) |
 | **RAG** | Retrieval-Augmented Generation — retrieve context, then generate → [rag.md](rag.md) |
+| **Residency / sovereignty** | Legal requirements pinning data (and increasingly AI processing) to a jurisdiction → [hybrid-cloud.md](hybrid-cloud.md) |
 | **Reverse ETL** | Pushing analytical results back into operational tools → [oltp-vs-olap.md](oltp-vs-olap.md) |
 | **Right to erasure** | Legal deletion that must propagate to all derived stores → [data-governance.md](data-governance.md) |
 | **SCD** | Slowly changing dimensions — how history is kept when attributes change → [data-modeling.md](data-modeling.md) |

@@ -76,6 +76,7 @@ nav:
       - Reference architecture: pages/reference-architecture.md
       - Data mesh: pages/data-mesh.md
       - Build vs. buy: pages/build-vs-buy.md
+      - Hybrid cloud: pages/hybrid-cloud.md
       - FinOps: pages/finops.md
   - Glossary: pages/glossary.md
   - Log: log.md

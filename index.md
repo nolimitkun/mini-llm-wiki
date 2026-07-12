@@ -56,6 +56,7 @@ Catalog of every page in `pages/`, one line each. Maintained per the workflows i
 - [Reference architecture](pages/reference-architecture.md) — the layered big picture and a build order where each stage funds the next.
 - [Data mesh & team topologies](pages/data-mesh.md) — domain ownership, data products, federated governance; when mesh fits and when it doesn't.
 - [Build vs. buy](pages/build-vs-buy.md) — layer-by-layer defaults, the model decision, TCO traps, a usable rubric.
+- [Hybrid cloud for data & AI platforms](pages/hybrid-cloud.md) — private (on-prem) + public cloud (AWS/Azure/GCP): placement forces, architecture patterns, the seams, hybrid AI.
 - [FinOps for data & AI](pages/finops.md) — visibility → attribution → optimization → accountability; where the money goes; AI token spend.
 
 ## reference

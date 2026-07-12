@@ -17,7 +17,7 @@ updated: 2026-07-12
 | **Access control** | Who can see/change it? | Role/attribute-based grants, row/column policies ([security](data-security-and-privacy.md)) |
 | **Meaning** | What does this column/metric mean? | [Catalog](data-catalog-and-lineage.md) docs, [semantic layer](semantic-layer.md) definitions |
 | **Quality** | Can I trust it? | Tests, SLOs, incident process ([data-quality.md](data-quality.md)) |
-| **Lifecycle** | How long is it kept? Where? | Retention schedules, residency rules, deletion workflows |
+| **Lifecycle** | How long is it kept? Where? | Retention schedules, residency rules ([hybrid-cloud.md](hybrid-cloud.md)), deletion workflows |
 
 ## Regulatory floor (2026)
 
