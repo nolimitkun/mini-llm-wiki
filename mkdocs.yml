@@ -77,6 +77,7 @@ nav:
       - Data mesh: pages/data-mesh.md
       - Build vs. buy: pages/build-vs-buy.md
       - Hybrid cloud: pages/hybrid-cloud.md
+      - Open source stack: pages/open-source-data-ai-platform.md
       - FinOps: pages/finops.md
   - Glossary: pages/glossary.md
   - Log: log.md

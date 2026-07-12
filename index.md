@@ -57,6 +57,7 @@ Catalog of every page in `pages/`, one line each. Maintained per the workflows i
 - [Data mesh & team topologies](pages/data-mesh.md) — domain ownership, data products, federated governance; when mesh fits and when it doesn't.
 - [Build vs. buy](pages/build-vs-buy.md) — layer-by-layer defaults, the model decision, TCO traps, a usable rubric.
 - [Hybrid cloud for data & AI platforms](pages/hybrid-cloud.md) — private (on-prem) + public cloud (AWS/Azure/GCP): placement forces, architecture patterns, the seams, hybrid AI.
+- [Building a data/AI platform from open source](pages/open-source-data-ai-platform.md) — the full OSS stack layer by layer (Iceberg/Trino/dbt/Airflow → vLLM/Langfuse), integration and TCO realities, when full-OSS fits.
 - [FinOps for data & AI](pages/finops.md) — visibility → attribution → optimization → accountability; where the money goes; AI token spend.
 
 ## reference

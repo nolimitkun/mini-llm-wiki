@@ -40,6 +40,8 @@ Every layer of the platform is a build/buy/adopt-OSS decision. The recurring pri
 
 Build only if **all four**: (1) core to differentiation, (2) no adequate product exists, (3) you'll fund maintenance indefinitely, (4) you'd hire for it anyway. Otherwise buy/adopt — and spend the saved engineering on your data models, which no vendor can sell you.
 
+"Adopt OSS" is its own full option: every platform layer has a production-grade open source implementation — the complete stack, its TCO reality, and when full-OSS is the right call are laid out in [open-source-data-ai-platform.md](open-source-data-ai-platform.md).
+
 ## Related
 
 - [reference-architecture.md](reference-architecture.md)

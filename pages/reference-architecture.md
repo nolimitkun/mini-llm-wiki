@@ -57,7 +57,7 @@ Each stage reuses the previous — a GenAI initiative on a weak data foundation 
 
 ## Deployment topology
 
-This architecture is placement-agnostic: all-in on one public cloud is the simplest case, but the same layers span private (on-prem) and public infrastructure — with open table formats and Kubernetes as the portability substrate, and governance/identity as the plane that must not split. See [hybrid-cloud.md](hybrid-cloud.md).
+This architecture is placement-agnostic: all-in on one public cloud is the simplest case, but the same layers span private (on-prem) and public infrastructure — with open table formats and Kubernetes as the portability substrate, and governance/identity as the plane that must not split. See [hybrid-cloud.md](hybrid-cloud.md). Every layer also has a production-grade open source implementation — [open-source-data-ai-platform.md](open-source-data-ai-platform.md) maps the full OSS stack onto this diagram.
 
 ## Related
 

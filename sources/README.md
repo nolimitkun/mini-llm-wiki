@@ -9,4 +9,4 @@ Rules (from [CLAUDE.md](../CLAUDE.md)):
 - Pages that draw on a source list it in their frontmatter `sources:` field.
 - Ingesting a new source follows the **Ingest** workflow in CLAUDE.md and gets a line in `log.md`.
 
-Currently empty — the initial 30 pages were written from general knowledge.
+(The initial wiki pages were written from general knowledge; sources accumulate here as material gets ingested.)
