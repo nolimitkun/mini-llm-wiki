@@ -1,0 +1,74 @@
+site_name: Mini LLM Wiki — Data & AI Platform
+site_description: An agent-maintained LLM knowledge base for data & AI platform teams
+docs_dir: .
+site_dir: /tmp/mini-llm-wiki-site
+exclude_docs: |
+  CLAUDE.md
+  sources/
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Light mode
+
+markdown_extensions:
+  - tables
+  - admonition
+  - pymdownx.superfences
+
+nav:
+  - Home: README.md
+  - Index: index.md
+  - Fundamentals:
+      - What is an LLM?: pages/what-is-an-llm.md
+      - Transformer architecture: pages/transformer-architecture.md
+      - Tokenization: pages/tokenization.md
+      - Embeddings: pages/embeddings.md
+      - Context windows: pages/context-windows.md
+  - Data platform:
+      - Data pipelines for LLMs: pages/data-pipelines-for-llms.md
+      - Vector databases: pages/vector-databases.md
+      - Data quality & curation: pages/data-quality-and-curation.md
+      - Data governance: pages/data-governance.md
+  - RAG:
+      - Overview: pages/rag-overview.md
+      - Chunking strategies: pages/chunking-strategies.md
+      - Retrieval techniques: pages/retrieval-techniques.md
+      - Evaluation: pages/rag-evaluation.md
+  - Training & adaptation:
+      - Pretraining: pages/pretraining.md
+      - Fine-tuning: pages/fine-tuning.md
+      - Alignment: pages/alignment.md
+  - Inference & serving:
+      - Model serving: pages/model-serving.md
+      - Inference optimization: pages/inference-optimization.md
+      - Cost optimization: pages/cost-optimization.md
+  - LLMOps:
+      - Overview: pages/llmops-overview.md
+      - Evaluation: pages/evaluation.md
+      - Monitoring & observability: pages/monitoring-and-observability.md
+      - Prompt management: pages/prompt-management.md
+  - Agents & integration:
+      - LLM agents: pages/agents.md
+      - Tool use: pages/tool-use.md
+      - MCP: pages/mcp.md
+  - Platform architecture:
+      - Reference architecture: pages/reference-architecture.md
+      - Build vs. buy: pages/build-vs-buy.md
+      - Security & privacy: pages/security-and-privacy.md
+  - Glossary: pages/glossary.md
+  - Log: log.md

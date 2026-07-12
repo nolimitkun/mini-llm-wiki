@@ -1,0 +1,33 @@
+# Mini LLM Wiki — Data & AI Platform Edition
+
+A practical knowledge base about LLMs on data/AI platforms, structured as an **agent-maintained wiki** following [Karpathy's llm-wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f): an LLM agent does the bookkeeping (filing, cross-referencing, linting) while humans direct and curate.
+
+## How it's organized
+
+| File / dir | Role |
+|---|---|
+| **[index.md](index.md)** | Start here — catalog of every page with one-line summaries, by category |
+| **[pages/](pages/)** | The wiki: one concept per page, flat, heavily cross-linked |
+| **[CLAUDE.md](CLAUDE.md)** | The schema: page conventions and the ingest / query / lint workflows the maintaining agent follows |
+| **[log.md](log.md)** | Append-only record of every ingest, query, and lint operation |
+| **[sources/](sources/README.md)** | Immutable raw material (papers, articles, notes) the pages draw on |
+
+The three-layer idea: **sources** are the authoritative raw ground truth, **pages** are the LLM-curated synthesis, and the **schema** keeps the agent's maintenance consistent. Categories live in page frontmatter and the index — not directory structure — so pages can be re-shelved without breaking links.
+
+## Using it
+
+- **Read**: browse from [index.md](index.md), or open the folder in Obsidian (links are plain relative Markdown).
+- **Ask**: point an agent (e.g. Claude Code) at this repo and ask questions — CLAUDE.md tells it to answer from the wiki with citations.
+- **Grow**: drop a paper or article into `sources/` and ask the agent to ingest it; it updates the relevant pages, the index, and the log.
+- **Maintain**: periodically ask the agent to run the lint workflow from CLAUDE.md.
+
+## Serving as a site
+
+```bash
+pip install mkdocs mkdocs-material
+mkdocs serve
+```
+
+## Coverage
+
+30 pages across: fundamentals · data-platform · rag · training-adaptation · inference-serving · llmops · agents-integration · platform-architecture · reference. See [index.md](index.md).
