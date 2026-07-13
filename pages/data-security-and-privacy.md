@@ -2,7 +2,7 @@
 title: Data security & privacy
 category: governance-quality
 updated: 2026-07-13
-sources: [sources/2026-07-open-source-project-comparisons.md]
+sources: [sources/2026-07-open-source-project-comparisons.md, sources/2026-07-commercial-product-comparisons.md]
 ---
 
 # Data security & privacy
@@ -55,6 +55,19 @@ Log access to sensitive data (who, what, when, via which system — including AI
 | **Trino/Apache Superset row/column controls** | Engine/application-level access enforcement | Useful last-mile controls; avoid bypass via raw object-store access |
 
 The safe pattern is identity in one place, policy as code, enforcement at engines/catalogs/gateways, and raw storage locked away from direct users.
+
+## Commercial product comparison
+
+| Product | Security/privacy role | Watch-outs |
+|---|---|---|
+| **Immuta** | Fine-grained data access, policy automation, privacy controls across platforms | Strong policy layer; integration coverage and policy design are the work |
+| **Privacera** | Centralized access governance, Ranger heritage, cloud/lakehouse policy enforcement | Good for heterogeneous estates; implementation can be substantial |
+| **Satori** | Data access control, masking, and security posture over warehouses/lakes | Useful proxy/control-plane model; validate latency and coverage |
+| **OneTrust / BigID** | Privacy operations, discovery, consent, DSAR, and data inventory | Privacy workflow layer; enforcement still depends on data platforms |
+| **Microsoft Purview / Google DLP / AWS Macie** | Cloud-native classification, DLP, discovery, and compliance controls | Strong inside a cloud; multi-cloud policy consistency needs design |
+| **Databricks Unity Catalog / Snowflake policies** | Native row/column/masking policy enforcement in the platform | Excellent local enforcement; raw storage and external tools remain bypass risks |
+
+Commercial privacy/security products help centralize policy and discovery, but the decisive architecture is still least privilege, no raw-bucket bypass, audit logs, and deletion propagation.
 
 ## Related
 

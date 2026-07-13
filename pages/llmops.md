@@ -2,7 +2,7 @@
 title: LLMOps
 category: genai-platform
 updated: 2026-07-13
-sources: [sources/2026-07-open-source-project-comparisons.md]
+sources: [sources/2026-07-open-source-project-comparisons.md, sources/2026-07-commercial-product-comparisons.md]
 ---
 
 # LLMOps
@@ -48,6 +48,19 @@ Prompts are production code in English: versioned in git/a registry with the mod
 | **OpenTelemetry** | Standard traces/metrics/logs across app and model calls | Standard substrate; LLM-specific semantics need conventions or wrappers |
 
 Langfuse is the practical OSS center; add eval libraries for CI and OpenTelemetry when platform-wide observability standardization matters.
+
+## Commercial product comparison
+
+| Product | LLMOps role | Watch-outs |
+|---|---|---|
+| **LangSmith** | Tracing, prompt/eval workflows, datasets, and LangChain/LangGraph app debugging | Strong if using LangChain ecosystem; keep provider-agnostic data exports in mind |
+| **Humanloop** | Prompt management, evals, feedback, and human review workflows | Good product loop; integrate with gateway logs and deployment gates |
+| **Weights & Biases Weave / Models** | LLM tracing/evals alongside broader ML experiment tracking | Strong for teams already on W&B; governance setup matters |
+| **Arize Phoenix managed / Arize AI** | LLM/RAG observability, evals, traces, and production monitoring | Strong observability; prompt release management may need companion workflow |
+| **Datadog / New Relic AI monitoring** | LLM cost, latency, traces, and app observability in existing APM stacks | Great ops visibility; LLM-specific eval/product loops may be thinner |
+| **Helicone / Portkey / Braintrust** | Gateway observability, prompt/eval workflows, experiments, and cost tracking | Pick by where you want the control point: gateway, eval platform, or app tracing |
+
+Commercial LLMOps should connect traces to evals to releases. Logging alone is not enough; the product must help decide whether a prompt/model change ships.
 
 ## Related
 

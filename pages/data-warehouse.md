@@ -2,7 +2,7 @@
 title: Data warehouse
 category: storage
 updated: 2026-07-13
-sources: [sources/2026-07-open-source-project-comparisons.md]
+sources: [sources/2026-07-open-source-project-comparisons.md, sources/2026-07-commercial-product-comparisons.md]
 ---
 
 # Data warehouse
@@ -51,6 +51,18 @@ Warehouses are the most managed-service-heavy layer, but the OSS alternatives ma
 | **DuckDB / MotherDuck-style local analytics** | Developer loops, tests, embedded analytics, small-to-mid datasets | Not the shared enterprise warehouse; concurrency and governance need surrounding systems |
 
 Practical default: use the lakehouse plus Trino/Spark/DuckDB as the open baseline, then add ClickHouse/Doris-class serving only where BI latency or concurrency proves the need.
+
+## Commercial product comparison
+
+| Product | Best fit | Watch-outs |
+|---|---|---|
+| **Snowflake** | Cross-cloud analytical warehouse with strong governance, sharing, marketplace, and semi-structured support | Cost control depends on warehouse sizing, auto-suspend discipline, and query hygiene |
+| **BigQuery** | Serverless analytics on Google Cloud, bursty SQL workloads, integrated Vertex AI paths | Slot/pricing model and data egress need explicit FinOps guardrails |
+| **Amazon Redshift** | AWS-standard warehouse, lake integration through Spectrum/Redshift Serverless, mature enterprise controls | Best when the rest of the estate is AWS; tune workload management and storage layout |
+| **Databricks SQL** | Lakehouse-first BI and SQL on Delta/Iceberg-oriented data, with ML/AI close by | Strongest when you buy into the Databricks platform rather than treating it as just SQL |
+| **Microsoft Fabric Warehouse / Synapse lineage** | Microsoft-centered organizations standardizing on Fabric, Power BI, OneLake, and Purview | Product surface is broad and evolving; validate maturity for your exact workload |
+
+Commercial warehouses buy integration, governance, elasticity, and support. The decision should be benchmarked on your concurrency, data gravity, governance model, and cloud commitment.
 
 ## Related
 

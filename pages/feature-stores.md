@@ -2,7 +2,7 @@
 title: Feature stores
 category: ml-platform
 updated: 2026-07-13
-sources: [sources/2026-07-open-source-project-comparisons.md]
+sources: [sources/2026-07-open-source-project-comparisons.md, sources/2026-07-commercial-product-comparisons.md]
 ---
 
 # Feature stores
@@ -54,6 +54,19 @@ Plus a registry: feature metadata, owners, freshness, and which models consume w
 | **Redis / Cassandra / DynamoDB-compatible stores** | Online feature materialization targets | Serving store, not feature governance; pair with a registry and offline source of truth |
 
 Adopt Feast when online/offline consistency and point-in-time training joins become recurring problems, not because every ML platform diagram has a feature store box.
+
+## Commercial product comparison
+
+| Product | Best fit | Watch-outs |
+|---|---|---|
+| **Tecton** | Production feature platform with online/offline consistency and streaming features | Strong dedicated product; cost and vendor dependency should match model volume |
+| **Databricks Feature Store / Feature Engineering** | Lakehouse-native features for Databricks ML teams | Best when training, registry, and serving are also Databricks-centered |
+| **SageMaker Feature Store** | AWS-native online/offline feature storage and ML integration | Strong AWS fit; portability outside AWS is limited |
+| **Vertex AI Feature Store** | GCP-native feature management for Vertex AI users | Best when Vertex AI is the ML control plane |
+| **Hopsworks managed offering** | Feature platform with OSS lineage and managed operations | Good if you want Feast-like openness with a fuller product |
+| **Redis Enterprise / DynamoDB / Bigtable** | Online feature serving substrate | Serving store only; registry, point-in-time joins, and governance must come from elsewhere |
+
+Buy a feature platform when online inference volume, reuse, and point-in-time correctness justify it. Otherwise lakehouse tables plus disciplined transforms are often enough.
 
 ## Related
 

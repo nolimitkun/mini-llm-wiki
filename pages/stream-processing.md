@@ -2,7 +2,7 @@
 title: Stream processing
 category: ingestion-processing
 updated: 2026-07-13
-sources: [sources/2026-07-open-source-project-comparisons.md]
+sources: [sources/2026-07-open-source-project-comparisons.md, sources/2026-07-commercial-product-comparisons.md]
 ---
 
 # Stream processing
@@ -52,6 +52,19 @@ A stateful streaming job is a **24/7 service**: capacity planning, checkpoint st
 | **Spark Structured Streaming** | Micro-batch/continuous jobs for Spark-standardized teams | Usually simpler than Flink for Spark shops, but less natural for low-latency event-time applications |
 
 The common open default is Kafka plus Flink; choose Redpanda/Pulsar only when their ops or tenancy model is the explicit reason.
+
+## Commercial product comparison
+
+| Product | Best fit | Watch-outs |
+|---|---|---|
+| **Confluent Cloud** | Managed Kafka ecosystem, schema registry, connectors, stream governance | Premium managed path; cost and networking need close management |
+| **Aiven for Kafka / Redpanda Cloud** | Managed Kafka-compatible streaming with simpler ops choices | Validate ecosystem compatibility, connector needs, and support boundaries |
+| **Amazon MSK / Kinesis / Google Pub/Sub / Azure Event Hubs** | Hyperscaler-native event streams with managed operations | Great in-cloud default; portability and Kafka compatibility vary by product |
+| **StreamNative Cloud** | Managed Pulsar for multi-tenant or geo-replicated messaging needs | Pulsar fit should be explicit; smaller mainstream data ecosystem than Kafka |
+| **Decodable / Confluent Flink / AWS Managed Flink** | Managed stream processing with SQL/Flink-style workflows | Reduces Flink ops, but stateful streaming design remains hard |
+| **Estuary Flow** | Real-time CDC and streaming materialization into warehouses/lakes | Strong freshness path; evaluate connector coverage and lock-in to its runtime |
+
+Commercial streaming is often worth it because Kafka/Flink are 24/7 systems. The product choice should follow latency, connector, schema, and replay requirements.
 
 ## Related
 

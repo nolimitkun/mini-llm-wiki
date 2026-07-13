@@ -2,7 +2,7 @@
 title: ML platform overview
 category: ml-platform
 updated: 2026-07-13
-sources: [sources/2026-07-open-source-project-comparisons.md]
+sources: [sources/2026-07-open-source-project-comparisons.md, sources/2026-07-commercial-product-comparisons.md]
 ---
 
 # ML platform overview
@@ -59,6 +59,19 @@ You need an ML *platform* when the third team starts duplicating the second team
 | **Feast** | Feature store registry plus offline/online materialization patterns | Solves features, not experiments, training, or serving end to end |
 
 For composable OSS, MLflow plus Feast plus Ray/Kubeflow components is the common path; resist installing the whole universe before model teams need it.
+
+## Commercial product comparison
+
+| Product | Platform role | Watch-outs |
+|---|---|---|
+| **Databricks Mosaic AI** | Lakehouse-native ML/GenAI, feature engineering, model serving, governance, notebooks/jobs | Strong when data and ML already live in Databricks |
+| **Amazon SageMaker AI** | AWS-native training, registry, features, pipelines, and deployment | Broad suite; teams must still standardize golden paths |
+| **Google Vertex AI** | GCP-native training, feature store, pipelines, model registry, endpoints, and GenAI integration | Best in GCP; understand which pieces are managed versus assembled |
+| **Azure Machine Learning / Azure AI Foundry** | Microsoft-native ML and GenAI lifecycle integrated with Azure/Fabric identity | Broad surface; product boundaries can shift |
+| **DataRobot** | AutoML, model governance, and enterprise ML lifecycle | Useful for business-facing ML teams; less flexible than platform-composable stacks |
+| **Domino Data Lab** | Enterprise data science workbench, reproducibility, governance, and compute orchestration | Strong for regulated DS orgs; can overlap with cloud ML suites |
+
+Commercial ML suites buy integration and compliance posture. They still fail if training data, feature ownership, and deployment standards are weak.
 
 ## Related
 

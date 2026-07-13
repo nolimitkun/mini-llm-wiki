@@ -2,7 +2,7 @@
 title: Retrieval-Augmented Generation (RAG)
 category: genai-platform
 updated: 2026-07-13
-sources: [sources/2026-07-open-source-project-comparisons.md]
+sources: [sources/2026-07-open-source-project-comparisons.md, sources/2026-07-commercial-product-comparisons.md]
 ---
 
 # Retrieval-Augmented Generation (RAG)
@@ -67,6 +67,19 @@ Re-run on every config change; mine production failures back into the set.
 | **FlagEmbedding / cross-encoder rerankers** | Reranking top candidates for relevance | Adds latency/cost; usually worth it for answer quality |
 
 Frameworks accelerate assembly, but RAG quality usually comes from parsing, chunking, hybrid search, reranking, ACLs, and evals--not the framework name.
+
+## Commercial product comparison
+
+| Product | RAG role | Watch-outs |
+|---|---|---|
+| **OpenAI Assistants/Responses + file/search tooling** | Fast managed RAG/application assembly around OpenAI models | Convenience can hide retrieval controls; verify citations, ACLs, and exportability |
+| **Azure AI Search + Azure OpenAI** | Enterprise RAG in Microsoft/Azure estates with search, identity, and model access | Strong integrated path; keep per-user ACLs and index freshness explicit |
+| **Vertex AI Agent Builder / Search** | GCP-native RAG/search/agent building over enterprise content | Best in GCP; evaluate retrieval transparency and customization depth |
+| **Amazon Bedrock Knowledge Bases / Agents** | AWS-native managed RAG and agent workflows across model providers | Convenient but opinionated; test chunking, retrieval, and eval integration |
+| **Databricks Mosaic AI Vector Search + Model Serving** | RAG close to lakehouse data, Unity Catalog, and enterprise governance | Strong if knowledge assets are governed in Databricks |
+| **Glean / Hebbia / Perplexity Enterprise-style products** | End-user enterprise search/answer products over workplace knowledge | Product value is high; less suitable when you need platform-level primitives for custom apps |
+
+Managed RAG products speed delivery, but the non-negotiables stay yours: ACLs, citations, freshness, evals, and deletion propagation.
 
 ## Related
 

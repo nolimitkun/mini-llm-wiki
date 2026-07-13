@@ -2,7 +2,7 @@
 title: Lakehouse
 category: storage
 updated: 2026-07-13
-sources: [sources/2026-07-open-source-project-comparisons.md]
+sources: [sources/2026-07-open-source-project-comparisons.md, sources/2026-07-commercial-product-comparisons.md]
 ---
 
 # Lakehouse
@@ -54,6 +54,19 @@ Lakehouse choices split into table format, catalog, and engines. Mixing them del
 | **Polaris / Nessie / Lakekeeper** | Iceberg catalogs with governance, branching, or OSS control-plane needs | The catalog becomes the lock-in layer; test every writer, not just readers |
 
 Selection rule: benchmark the whole path--writer, catalog, compaction, query engine, governance--because lakehouse failures usually live in integration gaps.
+
+## Commercial product comparison
+
+| Product | Best fit | Watch-outs |
+|---|---|---|
+| **Databricks Lakehouse** | Integrated lakehouse with Delta, Unity Catalog, notebooks/jobs, ML, and SQL | Deep platform integration is the value and the lock-in surface |
+| **Snowflake Open Catalog / Iceberg tables** | Snowflake-governed open-table strategy and warehouse access to lakehouse data | Clarify which system owns writes, catalog authority, and table maintenance |
+| **Starburst Galaxy** | Managed Trino over open lakehouse data with federated SQL | Strong query layer; still needs storage/catalog/governance decisions underneath |
+| **Dremio Cloud** | Lakehouse query acceleration and semantic layer over open object storage | Evaluate workload fit and reflection/acceleration operations |
+| **Microsoft Fabric OneLake** | Microsoft-integrated lakehouse experience across Power BI, Data Factory, notebooks, and warehouses | Best in a Microsoft-first operating model; portability needs testing |
+| **AWS Glue + Athena + EMR/Redshift Spectrum** | AWS-native lakehouse assembly from managed components | Flexible but composed; integration burden shifts to platform engineering |
+
+Commercial lakehouses differ mostly in where the control plane lives: Databricks, Snowflake, Microsoft, AWS, or an independent query vendor. Pick the control plane deliberately.
 
 ## Related
 

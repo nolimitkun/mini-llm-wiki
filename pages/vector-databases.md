@@ -2,7 +2,7 @@
 title: Vector databases
 category: genai-platform
 updated: 2026-07-13
-sources: [sources/2026-07-open-source-project-comparisons.md]
+sources: [sources/2026-07-open-source-project-comparisons.md, sources/2026-07-commercial-product-comparisons.md]
 ---
 
 # Vector databases
@@ -56,6 +56,19 @@ The trend mirrors the rest of the platform: vector search is becoming a *feature
 | **LanceDB / FAISS / hnswlib** | Embedded, local, batch, or lake-adjacent vector workflows | Libraries/embedded stores are great until you need multi-tenant online serving |
 
 Default to pgvector for small starts, Qdrant for a dedicated OSS vector store, and Milvus only when scale forces distributed vector infrastructure.
+
+## Commercial product comparison
+
+| Product | Best fit | Watch-outs |
+|---|---|---|
+| **Pinecone** | Managed purpose-built vector database with low ops and production scaling | Cost and proprietary service dependency grow with corpus/QPS |
+| **Qdrant Cloud** | Managed Qdrant with OSS continuity and strong filtering | Good balance of product and openness; validate enterprise features needed |
+| **Weaviate Cloud** | Managed Weaviate with schema/search/application features | Opinionated experience; evaluate fit with existing data model |
+| **Zilliz Cloud** | Managed Milvus for large-scale vector workloads | Strong at scale; complexity is abstracted, not gone |
+| **Databricks Vector Search** | Vector indexes governed close to lakehouse data and Mosaic AI apps | Best inside Databricks; less neutral for multi-platform retrieval |
+| **Vertex AI Vector Search / Azure AI Search / Amazon OpenSearch Serverless** | Cloud-native vector search integrated with cloud IAM and AI stacks | Convenient in-cloud; portability and hybrid retrieval details vary |
+
+Managed vector stores buy uptime and scale. The architectural question is whether vectors should live beside Postgres/search/lakehouse data or in a dedicated retrieval service.
 
 ## Related
 

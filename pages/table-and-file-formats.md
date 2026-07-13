@@ -2,7 +2,7 @@
 title: Table & file formats
 category: storage
 updated: 2026-07-13
-sources: [sources/2026-07-open-source-project-comparisons.md]
+sources: [sources/2026-07-open-source-project-comparisons.md, sources/2026-07-commercial-product-comparisons.md]
 ---
 
 # Table & file formats
@@ -61,6 +61,18 @@ A commit = write new files + atomically swap the metadata pointer. Readers pin a
 | **Apache Hudi** | Upsert-heavy ingestion and incremental consumption | Operationally distinctive; fit it to CDC needs rather than general BI alone |
 
 The durable choice is less about feature checklists than about the engines that must read and write the same tables safely.
+
+## Commercial product comparison
+
+| Product | Best fit | Watch-outs |
+|---|---|---|
+| **Databricks Delta / Unity Catalog** | Delta-centered lakehouse tables with strong managed governance and optimization | Neutrality depends on UniForm/Iceberg support and non-Databricks engine needs |
+| **Snowflake Iceberg Tables / Open Catalog** | Iceberg interoperability with Snowflake governance and query performance | Validate external engine write patterns and catalog ownership |
+| **AWS Glue Data Catalog + Athena/EMR** | AWS-native table metadata and managed query/processing over open formats | Glue is common plumbing; fine-grained governance may require Lake Formation and extra design |
+| **Google BigLake / BigQuery external tables** | BigQuery-governed access to lake files and open-table data | Strong GCP fit; cross-engine write guarantees need validation |
+| **Microsoft Fabric OneLake / shortcuts** | Microsoft-governed lake files with Power BI and Fabric engine integration | Works best inside Fabric conventions; test open table semantics across outside engines |
+
+The commercial question is not Parquet versus ORC. It is who owns table metadata, optimization, access policy, and cross-engine writes.
 
 ## Related
 

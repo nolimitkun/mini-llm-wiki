@@ -2,7 +2,7 @@
 title: Data ingestion
 category: ingestion-processing
 updated: 2026-07-13
-sources: [sources/2026-07-open-source-project-comparisons.md]
+sources: [sources/2026-07-open-source-project-comparisons.md, sources/2026-07-commercial-product-comparisons.md]
 ---
 
 # Data ingestion
@@ -49,6 +49,19 @@ Gotchas that find everyone: initial snapshot consistency with the ongoing stream
 | **Sling / ingestr** | Simple CLI-first replication and quick database/API moves | Great for narrow jobs; not a substitute for enterprise connector governance |
 
 Default to Airbyte for breadth, Debezium for serious CDC, and dlt when ingestion is part of a Python data product.
+
+## Commercial product comparison
+
+| Product | Best fit | Watch-outs |
+|---|---|---|
+| **Fivetran** | Reliable managed SaaS/database ELT with broad connector coverage and low ops | Expensive at scale; connector behavior and MAR pricing need FinOps visibility |
+| **Airbyte Cloud** | Managed version of an OSS-friendly connector ecosystem | More flexible/open posture; verify connector maturity for tier-1 sources |
+| **Matillion** | Cloud ELT with visual development and warehouse/lakehouse targets | Good productivity for visual teams; evaluate portability and CI/CD fit |
+| **Informatica IDMC** | Enterprise integration, governance, MDM-adjacent estates | Powerful but heavyweight; procurement and implementation effort are nontrivial |
+| **Qlik/Talend** | Enterprise data integration, CDC, and data quality combinations | Strong suite story; avoid buying more suite than the ingestion problem needs |
+| **AWS Glue / Azure Data Factory / Google Dataflow** | Cloud-native ingestion and movement inside one hyperscaler | Efficient in-cloud defaults; cross-cloud and SaaS connector depth varies |
+
+Buy ingestion when source API churn would eat your team. Build only the sources that are strategic, weird, or too costly to run through managed connectors.
 
 ## Related
 

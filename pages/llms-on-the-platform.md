@@ -2,7 +2,7 @@
 title: LLMs on the data platform
 category: genai-platform
 updated: 2026-07-13
-sources: [sources/2026-07-open-source-project-comparisons.md]
+sources: [sources/2026-07-open-source-project-comparisons.md, sources/2026-07-commercial-product-comparisons.md]
 ---
 
 # LLMs on the data platform
@@ -52,6 +52,19 @@ Provider APIs behind a **gateway** (auth, quotas, logging, routing, caching, fai
 | **Mistral/Qwen/Llama/DeepSeek open weights** | Self-hosted or privately deployed foundation models | License, safety, eval quality, and serving cost vary by model family and release |
 
 The platform default is provider APIs behind LiteLLM-style governance; self-host with vLLM when residency, latency, or sustained economics beat API simplicity.
+
+## Commercial product comparison
+
+| Product | Platform role | Watch-outs |
+|---|---|---|
+| **OpenAI / Azure OpenAI** | High-quality model APIs, embeddings, multimodal, enterprise controls, Azure residency path | Provider dependency, token cost, and data policy require gateway controls |
+| **Anthropic Claude** | Strong reasoning/writing models and enterprise API usage | Model/version changes still need eval gates; tool ecosystem differs by provider |
+| **Google Gemini / Vertex AI** | GCP-native models, multimodal, long-context, Vertex integration | Best in GCP; evaluate model quality on your tasks |
+| **AWS Bedrock** | AWS-native model marketplace/control plane across multiple providers | Convenient governance layer; model behavior and pricing vary by provider |
+| **Databricks Mosaic AI** | Enterprise GenAI close to lakehouse data, model serving, vector search, governance | Strong Databricks fit; less neutral as a standalone LLM layer |
+| **Cohere / Mistral / Together / Fireworks** | Specialized enterprise, open-weight hosting, or high-throughput inference options | Good alternatives; evaluate SLAs, residency, fine-tuning, and model roadmap |
+
+Do not let every app pick providers directly. Put commercial LLMs behind a gateway with auth, logging, routing, budgets, evals, and data-classification policy.
 
 ## Related
 

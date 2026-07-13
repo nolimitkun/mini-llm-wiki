@@ -2,7 +2,7 @@
 title: Semantic layer
 category: modeling-serving
 updated: 2026-07-13
-sources: [sources/2026-07-open-source-project-comparisons.md]
+sources: [sources/2026-07-open-source-project-comparisons.md, sources/2026-07-commercial-product-comparisons.md]
 ---
 
 # Semantic layer
@@ -52,6 +52,19 @@ Text-to-SQL against raw schemas is where "chat with your data" projects go to di
 | **LookML-style open alternatives** | Centralized dimensions/metrics in BI-centric workflows | Can drift from warehouse/dbt definitions if not treated as code with owners |
 
 If AI analytics is on the roadmap, prefer a semantic layer with an API surface and permission model, not just dashboard-local metric definitions.
+
+## Commercial product comparison
+
+| Product | Best fit | Watch-outs |
+|---|---|---|
+| **Looker / LookML** | Mature governed semantic modeling tightly integrated with BI and embedded analytics | Strong but Looker-centered; warehouse/dbt logic can drift without process |
+| **dbt Semantic Layer** | dbt-centered metric definitions consumed by multiple tools | Best when dbt is already the transformation standard |
+| **Cube Cloud** | Semantic API, caching, embedded analytics, and AI-agent access | Strong API/product layer; model governance still needs review and ownership |
+| **AtScale** | Enterprise semantic layer across BI tools and data platforms | Good for large BI estates; implementation rigor matters |
+| **Power BI semantic models / Microsoft Fabric** | Microsoft-standard metrics and models for Power BI-heavy organizations | Excellent inside Microsoft; cross-tool neutrality is limited |
+| **Tableau semantic/data model features** | Tableau-centered governed analytics experiences | Works well for Tableau users; avoid duplicating warehouse/dbt definitions |
+
+If the semantic layer will feed agents, prioritize API access, permission propagation, lineage, and metric tests over dashboard convenience alone.
 
 ## Related
 

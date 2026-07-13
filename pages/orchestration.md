@@ -2,7 +2,7 @@
 title: Orchestration
 category: ingestion-processing
 updated: 2026-07-13
-sources: [sources/2026-07-open-source-project-comparisons.md]
+sources: [sources/2026-07-open-source-project-comparisons.md, sources/2026-07-commercial-product-comparisons.md]
 ---
 
 # Orchestration
@@ -44,6 +44,19 @@ The significant recent shift: from "schedule **tasks**" to "declare **data asset
 | **Temporal** | Durable application workflows and long-running business processes | Excellent for services; not a drop-in data orchestrator unless you build data semantics around it |
 
 Airflow remains the safe incumbent; Dagster is the strongest data-asset choice; Prefect is the ergonomic Python option.
+
+## Commercial product comparison
+
+| Product | Best fit | Watch-outs |
+|---|---|---|
+| **Astronomer** | Managed Airflow for teams that want the Airflow ecosystem without owning the control plane | Still Airflow; DAG design and operational discipline remain yours |
+| **Dagster Cloud** | Managed asset-centric orchestration, freshness, and data platform developer workflow | Strong if you adopt asset semantics; less natural for legacy task-only DAG estates |
+| **Prefect Cloud** | Managed Python workflow automation and observability | Great ergonomics; data asset governance depends on conventions |
+| **Databricks Workflows** | Jobs and pipelines inside a Databricks-standardized platform | Convenient integrated path; not a neutral cross-platform orchestrator |
+| **AWS Step Functions / MWAA / Azure Data Factory / Composer** | Cloud-native orchestration inside one hyperscaler | Good local default; can fragment observability across clouds and tools |
+| **Control-M / enterprise schedulers** | Existing enterprise batch estates with centralized operations | Reliable but often weak on modern data asset semantics |
+
+A managed orchestrator removes scheduler ops, not pipeline design. The real choice is neutral platform brain versus cloud/vendor-local workflow control.
 
 ## Related
 
