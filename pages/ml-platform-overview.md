@@ -1,7 +1,8 @@
 ---
 title: ML platform overview
 category: ml-platform
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # ML platform overview
@@ -46,6 +47,18 @@ Don't build two disconnected platforms: one registry/gateway/observability spine
 ## Maturity honesty
 
 You need an ML *platform* when the third team starts duplicating the second team's deployment scripts. Before that, a paved-road template plus the data platform is enough — premature platformization is how ML infra teams ship zero models for a year.
+
+## Open source project comparison
+
+| Project | Platform role | Watch-outs |
+|---|---|---|
+| **MLflow** | Experiment tracking, model registry, deployments/gateway/tracing in newer versions | Pragmatic default, but not a full Kubernetes ML platform by itself |
+| **Kubeflow** | Kubernetes-native ML stack: notebooks, pipelines, training operators, serving components | Powerful but operationally heavy; adopt components deliberately |
+| **Ray** | Distributed Python compute for training, tuning, serving, and data workloads | Compute substrate, not governance/registry/catalog on its own |
+| **Metaflow** | Developer-friendly ML workflows with data/versioning ergonomics | Strong for team productivity; less of a broad platform control plane |
+| **Feast** | Feature store registry plus offline/online materialization patterns | Solves features, not experiments, training, or serving end to end |
+
+For composable OSS, MLflow plus Feast plus Ray/Kubeflow components is the common path; resist installing the whole universe before model teams need it.
 
 ## Related
 

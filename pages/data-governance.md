@@ -1,7 +1,8 @@
 ---
 title: Data governance
 category: governance-quality
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # Data governance
@@ -38,6 +39,18 @@ AI systems stress governance because they move data across boundaries at runtime
 - **Federated model**: central team sets standards and runs shared tooling; domain teams own their data's classification, quality, and access decisions ([data-mesh.md](data-mesh.md)).
 - **Tier your effort**: tier-1 (regulatory, executive-facing, AI-feeding) assets get full rigor; long-tail exploration gets defaults. Uniform maximal governance guarantees circumvention.
 - **Measure it**: % assets with owners, classification coverage, access-review completion, time-to-grant. Governance without metrics is vibes.
+
+## Open source project comparison
+
+| Project | Governance role | Watch-outs |
+|---|---|---|
+| **OpenMetadata** | Catalog, glossary, lineage, owners, quality signals, policy context | Broad platform; success depends on automated harvesting and workflow adoption |
+| **DataHub** | Metadata graph, real-time metadata events, APIs, lineage, ownership | Strong integration substrate; governance UX and operating model still need design |
+| **Apache Ranger** | Centralized access policies for Hadoop/lakehouse-era engines | Best in supported ecosystems; less universal for modern SaaS/warehouse estates |
+| **Open Policy Agent (OPA)** | Policy-as-code decision engine for services, gateways, and custom controls | A policy engine, not a data governance product; you build integration and audit trails |
+| **OpenLineage** | Standard lineage event model across orchestrators and engines | Complements catalogs; does not solve discovery, ownership, or policy by itself |
+
+Use catalogs for governance workflow, OPA/Ranger for enforcement where they fit, and OpenLineage as the exchange format between systems.
 
 ## Related
 

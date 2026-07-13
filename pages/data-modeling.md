@@ -1,7 +1,8 @@
 ---
 title: Data modeling
 category: modeling-serving
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # Data modeling
@@ -40,6 +41,19 @@ Pragmatic default: **staging → core with clear entities → dimensional (or OB
 - **ML**: point-in-time correctness — training joins must only see data as-of the label's timestamp (the [feature store](feature-stores.md) problem). SCD2-style history makes this possible; current-state-only tables silently leak the future.
 - **GenAI/agents**: an [LLM writing SQL](llms-on-the-platform.md) is the ultimate naive consumer — it needs obvious names, documented columns, declared relationships, and a [semantic layer](semantic-layer.md) far more than a human analyst does. Clean modeling has become an AI-readiness investment.
 - **Real-time**: streaming sinks favor wide, pre-joined shapes; model the enrichment in the [stream](stream-processing.md) or accept lookup latency.
+
+## Open source project comparison
+
+Modeling is a practice more than a product, but OSS tools shape how models are expressed, tested, and reused.
+
+| Project / approach | Best fit | Watch-outs |
+|---|---|---|
+| **dbt-core** | Dimensional marts, documented SQL models, tests, exposures, and downstream lineage | It will not design grains or metrics for you; bad models become neatly documented bad models |
+| **SQLMesh** | Model evolution with stronger environment and incremental planning semantics | Smaller community; most useful when model lifecycle complexity is already painful |
+| **OpenMetadata / DataHub** | Publishing model ownership, descriptions, lineage, and usage signals | Catalog metadata must be wired into workflow or it decays |
+| **MetricFlow / Cube / Lightdash metrics** | Turning modeled tables into governed metrics for humans and agents | Semantic layers expose modeling mistakes quickly; fix grains and relationships first |
+
+Use dbt/SQLMesh to encode the physical model, a catalog to make it discoverable, and a semantic layer only after the core grains are defensible.
 
 ## Related
 

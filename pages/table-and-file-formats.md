@@ -1,7 +1,8 @@
 ---
 title: Table & file formats
 category: storage
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # Table & file formats
@@ -47,6 +48,19 @@ A commit = write new files + atomically swap the metadata pointer. Readers pin a
 - **Compaction**: merge small files from streaming/frequent commits — the #1 lakehouse performance issue.
 - **Snapshot expiry & orphan cleanup**: unbounded time travel = unbounded storage ([finops.md](finops.md)).
 - **Sort/cluster within files**: data layout tuned to query patterns beats most other optimizations.
+
+## Open source project comparison
+
+| Project / format | Best fit | Watch-outs |
+|---|---|---|
+| **Parquet** | Default analytical file format for lake, warehouse external tables, ML feature data | Great files do not make a table; use a table format for transactions and deletes |
+| **ORC** | Hive/Trino-heavy estates with existing ORC optimization | Less universal as a default interchange than Parquet |
+| **Avro / Protobuf** | Streaming payloads with schema registry and compatibility rules | Row payloads, not analytical storage targets; usually convert to Parquet/Iceberg downstream |
+| **Apache Iceberg** | Multi-engine transactional tables and neutral lakehouse architecture | Best when paired with an explicit catalog and table-maintenance automation |
+| **Delta Lake** | Spark-first lakehouse tables and Databricks interoperability | Validate non-Spark readers/writers before calling it open interchange |
+| **Apache Hudi** | Upsert-heavy ingestion and incremental consumption | Operationally distinctive; fit it to CDC needs rather than general BI alone |
+
+The durable choice is less about feature checklists than about the engines that must read and write the same tables safely.
 
 ## Related
 

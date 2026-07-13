@@ -1,7 +1,8 @@
 ---
 title: Data warehouse
 category: storage
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # Data warehouse
@@ -37,6 +38,19 @@ The warehouse's strengths — governance, performance, SQL ergonomics — histor
 - **Cost discipline**: the elastic-compute model makes overspend easy — see [finops.md](finops.md) for warehouse-specific tactics (right-sizing, query hygiene, storage tiering).
 - **Workload isolation**: separate compute for ELT, BI, and ad-hoc/data-science so one team's monster query doesn't starve dashboards.
 - **Concurrency & serving**: warehouses serve analysts well; for user-facing analytics at high QPS, front them with a real-time OLAP store or cache.
+
+## Open source project comparison
+
+Warehouses are the most managed-service-heavy layer, but the OSS alternatives matter when you want warehouse-like SQL on open data.
+
+| Project | Best fit | Watch-outs |
+|---|---|---|
+| **ClickHouse** | High-concurrency analytics, event data, user-facing dashboards, observability-style workloads | Excellent OLAP engine, but not a general warehouse replacement for broad governance, arbitrary joins, or semantic consistency by itself |
+| **Apache Doris / StarRocks** | MPP SQL warehouses for interactive BI over modeled tables | Strong serving engines; evaluate community/license posture, ecosystem maturity, and lakehouse write/read semantics carefully |
+| **Trino + Iceberg** | Federated SQL and lakehouse analytics without proprietary warehouse storage | Great read path; you still own table maintenance, catalog policy, workload isolation, and cost controls |
+| **DuckDB / MotherDuck-style local analytics** | Developer loops, tests, embedded analytics, small-to-mid datasets | Not the shared enterprise warehouse; concurrency and governance need surrounding systems |
+
+Practical default: use the lakehouse plus Trino/Spark/DuckDB as the open baseline, then add ClickHouse/Doris-class serving only where BI latency or concurrency proves the need.
 
 ## Related
 

@@ -1,7 +1,8 @@
 ---
 title: Semantic layer
 category: modeling-serving
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # Semantic layer
@@ -40,6 +41,17 @@ Text-to-SQL against raw schemas is where "chat with your data" projects go to di
 - Semantic layer as shelfware: built, not wired into the tools people use.
 - Definitions without owners — a governance problem wearing a technology costume.
 - Trying to model *everything* up front instead of following real usage.
+
+## Open source project comparison
+
+| Project | Best fit | Watch-outs |
+|---|---|---|
+| **Cube Core** | Semantic API for BI, embedded analytics, caching/pre-aggregations, and AI agents | Strong app-facing layer; model governance still needs ownership and review discipline |
+| **MetricFlow / dbt Semantic Layer** | dbt-centered teams that want metrics as YAML near transformation code | Natural dbt fit; runtime/server capabilities depend on how you deploy or consume it |
+| **Lightdash** | BI tightly coupled to dbt models and metrics | Productive when Lightdash is the BI surface; less neutral as a standalone semantic API |
+| **LookML-style open alternatives** | Centralized dimensions/metrics in BI-centric workflows | Can drift from warehouse/dbt definitions if not treated as code with owners |
+
+If AI analytics is on the roadmap, prefer a semantic layer with an API surface and permission model, not just dashboard-local metric definitions.
 
 ## Related
 

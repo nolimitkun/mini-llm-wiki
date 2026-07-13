@@ -1,7 +1,8 @@
 ---
 title: Model serving
 category: ml-platform
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # Model serving
@@ -33,6 +34,19 @@ Serving LLMs inherits everything above plus its own regime — huge models, toke
 - **Continuous batching + KV-cache management** (vLLM/SGLang-class engines) determine throughput; **quantization** (FP8/INT4) trades memory for evaluated quality loss.
 - **Most teams consume provider APIs** rather than self-hosting — making the serving problem one of gateways, quotas, caching, and failover instead of GPUs ([llms-on-the-platform.md](llms-on-the-platform.md), [build-vs-buy.md](build-vs-buy.md)).
 - Cost scales with *tokens processed*, not instances — a different [FinOps](finops.md) conversation.
+
+## Open source project comparison
+
+| Project | Best fit | Watch-outs |
+|---|---|---|
+| **KServe** | Kubernetes-native model inference with canary, autoscaling, multi-framework serving | Good platform primitive; Kubernetes complexity comes with it |
+| **Seldon Core** | Advanced inference graphs, explainers, Kubernetes ML serving patterns | Powerful but another control plane to operate |
+| **BentoML** | Packaging models as services with developer-friendly APIs | Great app packaging; platform governance/registry/traffic policy need integration |
+| **MLflow Deployments/Models** | Teams already using MLflow registry and tracking | Convenient default; less specialized than KServe/Seldon for large multi-tenant serving |
+| **Ray Serve** | Python-native scalable serving, ensembles, model composition | Strong when Ray is already the compute substrate |
+| **vLLM / SGLang / TGI** | LLM-specific high-throughput GPU serving | Specialized for generative models; still need gateway, evals, quotas, and logging |
+
+Choose classic serving by deployment topology, and LLM serving by throughput, GPU memory, batching behavior, and operational visibility.
 
 ## Related
 

@@ -1,7 +1,8 @@
 ---
 title: Data transformation
 category: ingestion-processing
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # Data transformation
@@ -43,6 +44,18 @@ Full rebuilds are simple and correct — do them while you can afford to. When t
 - **Untested SQL** — a silent `JOIN` fan-out doubles revenue and nobody notices for a quarter.
 - **Monolithic god-models** — 2,000-line SQL nobody dares touch; decompose like any code.
 - **No ownership** — every model needs an owning team, or rot is guaranteed ([data-mesh.md](data-mesh.md)).
+
+## Open source project comparison
+
+| Project | Best fit | Watch-outs |
+|---|---|---|
+| **dbt-core** | SQL analytics engineering, tests/docs/lineage as code, broad hiring ecosystem | Powerful convention, but stateful incremental correctness and environment isolation require discipline |
+| **SQLMesh** | Transformations where environments, virtual data environments, and incremental planning matter | Smaller ecosystem than dbt; strongest for teams willing to adopt its planning model |
+| **Apache Spark** | Large-scale transforms, non-SQL logic, ML prep, semi-structured processing | More engineering surface than SQL-first transforms; keep orchestration and business logic clean |
+| **Flink SQL** | Continuous transformations over streams | Operationally a streaming service; do not use when micro-batch is enough |
+| **Dataform-style SQL repos** | Warehouse-native SQL projects with lightweight workflow needs | Often tied to a platform; evaluate portability if OSS/control matters |
+
+Choose the tool by dominant transformation shape: dbt/SQLMesh for modeled analytics, Spark for heavy compute, Flink only when continuous state is truly required.
 
 ## Related
 

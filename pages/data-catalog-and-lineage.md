@@ -1,7 +1,8 @@
 ---
 title: Data catalog & lineage
 category: governance-quality
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # Data catalog & lineage
@@ -37,6 +38,18 @@ What it unlocks:
 ## Adoption honesty
 
 Catalogs fail socially, not technically: bought, populated, ignored. What works — wire the catalog into workflows (search from the IDE/BI tool, ownership pings on quality incidents), start with the 50 assets people actually fight over, and let [AI assistants query the catalog](agents-and-mcp.md) so documentation pays rent as machine context, not just human reading.
+
+## Open source project comparison
+
+| Project | Best fit | Watch-outs |
+|---|---|---|
+| **OpenMetadata** | All-in-one OSS catalog with schemas, owners, docs, lineage, quality, and governance workflows | Easier to adopt as a visible product; still needs curation on tier-1 assets |
+| **DataHub** | Metadata graph, streaming metadata, API-first integration, large platform teams | Powerful substrate; may need more platform engineering to shape the user experience |
+| **OpenLineage** | Standard lineage events emitted by Airflow, Spark, dbt, and other tools | Event standard, not a catalog UI; pair with DataHub/OpenMetadata/Marquez |
+| **Marquez** | Lightweight lineage collection and visualization around OpenLineage | Good lineage-only start; limited discovery/governance compared with full catalogs |
+| **Amundsen** | Search/discovery-oriented legacy OSS catalog pattern | Less momentum than newer OpenMetadata/DataHub paths |
+
+Default to OpenMetadata when you want an integrated catalog product; choose DataHub when metadata graph extensibility and streaming ingestion are central.
 
 ## Related
 

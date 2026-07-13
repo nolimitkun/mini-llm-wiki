@@ -1,7 +1,8 @@
 ---
 title: Data security & privacy
 category: governance-quality
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # Data security & privacy
@@ -42,6 +43,18 @@ AI consumers open genuinely new surfaces (detailed in [llmops.md](llmops.md) and
 ## Audit: the part that saves you later
 
 Log access to sensitive data (who, what, when, via which system — including AI-mediated access), retain per policy, and review anomalies. When the regulator or the incident comes, the audit log is the difference between a bad week and a bad year.
+
+## Open source project comparison
+
+| Project | Security/privacy role | Watch-outs |
+|---|---|---|
+| **Open Policy Agent (OPA)** | Policy-as-code decisions for services, gateways, and custom data access paths | Needs integration with identity, catalogs, logs, and engines |
+| **Apache Ranger** | Central policy administration and auditing for supported big-data engines | Strong in Hadoop/lake ecosystems; coverage varies across modern lakehouse engines |
+| **Keycloak** | OSS identity provider for SSO/OIDC/SAML in self-hosted stacks | Identity provider, not data authorization; pair with engine/catalog enforcement |
+| **Vault / OpenBao** | Secrets management, dynamic credentials, encryption workflows | Secrets hygiene only works if pipelines stop carrying static keys |
+| **Trino/Apache Superset row/column controls** | Engine/application-level access enforcement | Useful last-mile controls; avoid bypass via raw object-store access |
+
+The safe pattern is identity in one place, policy as code, enforcement at engines/catalogs/gateways, and raw storage locked away from direct users.
 
 ## Related
 
