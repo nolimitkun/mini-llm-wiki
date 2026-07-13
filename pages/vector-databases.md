@@ -1,7 +1,8 @@
 ---
 title: Vector databases
 category: genai-platform
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # Vector databases
@@ -42,6 +43,19 @@ The trend mirrors the rest of the platform: vector search is becoming a *feature
 - **Hybrid search**: production retrieval pairs vectors with BM25 keyword search ([rag.md](rag.md)); prefer a store that does both.
 - **Rebuild time = recovery time**: measure full re-embed + re-index duration; it bounds disaster recovery and model migrations ([embeddings.md](embeddings.md)).
 - Index freshness gets an SLO and monitoring like any [quality](data-quality.md) surface.
+
+## Open source project comparison
+
+| Project | Best fit | Watch-outs |
+|---|---|---|
+| **pgvector** | Start here when Postgres already exists, scale is moderate, and relational filters matter | Simplicity wins early; very large/vector-heavy workloads can outgrow it |
+| **Qdrant** | Purpose-built vector search with strong filtering and simpler ops than larger distributed systems | Good default dedicated engine; still a new production datastore |
+| **Milvus** | Very large-scale vector workloads and distributed ANN infrastructure | More moving parts; best when scale justifies the complexity |
+| **Weaviate** | Vector search plus higher-level schema/search/application features | Opinionated platform; evaluate fit against your desired control model |
+| **OpenSearch k-NN** | Hybrid keyword/vector search where OpenSearch is already deployed | Useful consolidation; vector performance and filtering must be benchmarked |
+| **LanceDB / FAISS / hnswlib** | Embedded, local, batch, or lake-adjacent vector workflows | Libraries/embedded stores are great until you need multi-tenant online serving |
+
+Default to pgvector for small starts, Qdrant for a dedicated OSS vector store, and Milvus only when scale forces distributed vector infrastructure.
 
 ## Related
 

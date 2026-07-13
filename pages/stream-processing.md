@@ -1,7 +1,8 @@
 ---
 title: Stream processing
 category: ingestion-processing
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # Stream processing
@@ -38,6 +39,19 @@ The **event log** is the backbone: durable, partitioned, replayable — consumer
 ## Honest costs
 
 A stateful streaming job is a **24/7 service**: capacity planning, checkpoint storage, savepoint-based upgrades, replay procedures, on-call. Before committing, re-ask whether minutes-level micro-batch meets the need ([batch-vs-streaming.md](batch-vs-streaming.md)) — and if yes to streaming, standardize on one processor and build shared tooling (deploy, monitor, replay) as platform capabilities.
+
+## Open source project comparison
+
+| Project | Best fit | Watch-outs |
+|---|---|---|
+| **Apache Kafka** | Durable event log, broad ecosystem, replayable integration backbone | You operate partitions, retention, schemas, rebalancing, and client compatibility |
+| **Redpanda** | Kafka API compatibility with simpler single-binary operations | Compatibility is high but not magical; validate edge connectors and operational expectations |
+| **Apache Pulsar** | Multi-tenant messaging, geo-replication, separated compute/storage architecture | More moving parts and smaller data-platform ecosystem than Kafka |
+| **Apache Flink** | Stateful event-time processing, exactly-once pipelines, complex windows/joins | A 24/7 distributed system with savepoints, state backends, and upgrade discipline |
+| **Kafka Streams / ksqlDB** | Application-adjacent stream processing inside Kafka-centric teams | Narrower than Flink for complex state and multi-source processing |
+| **Spark Structured Streaming** | Micro-batch/continuous jobs for Spark-standardized teams | Usually simpler than Flink for Spark shops, but less natural for low-latency event-time applications |
+
+The common open default is Kafka plus Flink; choose Redpanda/Pulsar only when their ops or tenancy model is the explicit reason.
 
 ## Related
 

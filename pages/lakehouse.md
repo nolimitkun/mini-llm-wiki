@@ -1,7 +1,8 @@
 ---
 title: Lakehouse
 category: storage
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # Lakehouse
@@ -40,6 +41,19 @@ versus the older pattern of a lake *and* a warehouse with a copy-and-drift pipel
 1. Land ingestion into table-format tables from day one (raw zone).
 2. Run [transformations](data-transformation.md) lake-side; serve BI from the same tables via a fast SQL engine.
 3. Keep (or add) a warehouse only where measured price/performance justifies it — as *an engine on the lakehouse*, not a second silo.
+
+## Open source project comparison
+
+Lakehouse choices split into table format, catalog, and engines. Mixing them deliberately matters more than picking a single branded stack.
+
+| Project | Best fit | Watch-outs |
+|---|---|---|
+| **Apache Iceberg** | Neutral multi-engine lakehouse tables across Trino, Spark, Flink, DuckDB, and warehouses | Catalog choice controls real interoperability; maintenance jobs are still required |
+| **Delta Lake** | Spark/Databricks-centered estates and teams that value mature Delta tooling | Strong installed base, but neutrality depends on UniForm/catalog support in your actual engines |
+| **Apache Hudi** | CDC-heavy lakes, incremental pulls, and record-level upsert pipelines | Less common as the general-purpose interchange; choose for its write pattern, not fashion |
+| **Polaris / Nessie / Lakekeeper** | Iceberg catalogs with governance, branching, or OSS control-plane needs | The catalog becomes the lock-in layer; test every writer, not just readers |
+
+Selection rule: benchmark the whole path--writer, catalog, compaction, query engine, governance--because lakehouse failures usually live in integration gaps.
 
 ## Related
 

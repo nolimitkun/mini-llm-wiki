@@ -1,7 +1,8 @@
 ---
 title: LLMOps
 category: genai-platform
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # LLMOps
@@ -34,6 +35,19 @@ Close the loop: low-scored samples → human review → golden set. That flow is
 ## Prompt management
 
 Prompts are production code in English: versioned in git/a registry with the model version they were tested against; templated with typed variables (log the *rendered* prompt — template bugs that drop context produce confident hallucinations); deployed decoupled from app releases but always through the eval gate. Anti-patterns: prompts inline in code, one mega-prompt serving five features, instruction accretion after every incident until 4k tokens of contradictions — periodically rewrite against the eval set.
+
+## Open source project comparison
+
+| Project | LLMOps role | Watch-outs |
+|---|---|---|
+| **Langfuse** | Traces, prompt management, datasets, evals, cost/latency visibility | Strong OSS default; self-hosting includes Postgres/ClickHouse/Redis-style ops |
+| **Phoenix / OpenInference** | Tracing, evaluation, retrieval analysis, OpenTelemetry-adjacent AI observability | Strong for observability workflows; prompt/product management differs from Langfuse |
+| **MLflow Tracing / AI Gateway** | Teams already standardizing MLflow for classic ML and GenAI together | Good shared spine; depth varies by LLMOps feature |
+| **LiteLLM** | Gateway logs, budgets, routing, provider abstraction | Operational control point, not a complete eval/trace product |
+| **DeepEval / Ragas / promptfoo** | Offline eval suites for RAG, prompts, and model comparisons | Great CI tools; production feedback loops still need tracing and review workflow |
+| **OpenTelemetry** | Standard traces/metrics/logs across app and model calls | Standard substrate; LLM-specific semantics need conventions or wrappers |
+
+Langfuse is the practical OSS center; add eval libraries for CI and OpenTelemetry when platform-wide observability standardization matters.
 
 ## Related
 

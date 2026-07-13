@@ -1,7 +1,8 @@
 ---
 title: MLOps
 category: ml-platform
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # MLOps
@@ -31,6 +32,19 @@ Continuous integration (tests on code *and* data assumptions), continuous delive
 ## MLOps vs. LLMOps
 
 Same skeleton, different joints: with foundation models you usually don't own training — the versioned surface becomes *prompts, retrieval indexes, adapters, and provider model versions*, and evaluation becomes judged text quality rather than labeled metrics. Details in [llmops.md](llmops.md); shared spine argued in [ml-platform-overview.md](ml-platform-overview.md).
+
+## Open source project comparison
+
+| Project | MLOps role | Watch-outs |
+|---|---|---|
+| **MLflow** | Tracking, registry, artifacts, model packaging, gateway/tracing extensions | Best pragmatic default; governance and CI/CD still need surrounding process |
+| **DVC** | Data/model versioning tied to Git workflows and remote storage | Excellent for reproducibility; less of a central registry/serving platform |
+| **Weights & Biases Local alternatives / ClearML** | Experiment tracking, orchestration, artifact management in OSS/self-hosted forms | Evaluate license, self-hosting burden, and integration with your registry path |
+| **Kubeflow Pipelines** | Reproducible containerized training/evaluation pipelines on Kubernetes | Heavy but strong when K8s-native ML workflows are the standard |
+| **Evidently** | Drift, data quality, and model performance monitoring reports/services | Monitoring component, not a full MLOps spine |
+| **BentoML / KServe / Ray Serve** | Deployment side of the loop | Serving tools must connect back to registry, eval gates, and monitoring |
+
+MLflow is the common center of gravity; add DVC, KFP, Evidently, or serving platforms for specific gaps rather than assembling a tool pile.
 
 ## Related
 

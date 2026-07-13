@@ -1,7 +1,8 @@
 ---
 title: Query engines
 category: modeling-serving
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # Query engines
@@ -35,6 +36,19 @@ Practical performance triage, in order: *is the layout pruning?* → *is one tas
 2. Add a real-time OLAP store only when a product surface needs sub-second, high-concurrency queries.
 3. Use DuckDB-class engines for dev loops, tests, and small-data pipelines — matching CI to production semantics.
 4. Resist engine sprawl: every additional engine multiplies [governance](data-governance.md), [FinOps](finops.md), and expertise surface.
+
+## Open source project comparison
+
+| Project | Best fit | Watch-outs |
+|---|---|---|
+| **Trino** | Federated interactive SQL, lakehouse reads, many connectors, analyst-facing queries | Read-heavy by design; heavy ETL and write paths usually belong elsewhere |
+| **Apache Spark** | Distributed batch, ETL, ML prep, very large shuffles, broad ecosystem | Cluster overhead and tuning are real; overkill for small data |
+| **DuckDB** | Local analytics, tests, embedded apps, notebooks, CI, small-to-mid Parquet/Iceberg workloads | Not a multi-user shared serving engine |
+| **ClickHouse** | Real-time OLAP, event analytics, observability, user-facing dashboards | Data modeling and ingestion layout matter; not a general federated query layer |
+| **Druid / Pinot** | High-concurrency real-time analytics over event streams | More specialized serving stores; add only when latency/concurrency demands it |
+| **Polars / DataFusion** | Dataframe/native engine embedding in applications and pipelines | Great libraries; platform governance and SQL serving need surrounding systems |
+
+A healthy platform usually has one paved-road SQL engine, one heavy batch engine, and one real-time serving engine only when product latency demands it.
 
 ## Related
 

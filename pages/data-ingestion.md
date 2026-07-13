@@ -1,7 +1,8 @@
 ---
 title: Data ingestion
 category: ingestion-processing
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # Data ingestion
@@ -36,6 +37,18 @@ Gotchas that find everyone: initial snapshot consistency with the ongoing stream
 - **Freshness SLOs** — measure landed-at vs produced-at lag per source; alert like an uptime metric ([data-quality.md](data-quality.md)).
 - **Backfill path** — distinct from the incremental path, designed up front, rate-limited against sources.
 - **PII at the door** — classify and tag on landing, before data spreads ([data-governance.md](data-governance.md)).
+
+## Open source project comparison
+
+| Project | Best fit | Watch-outs |
+|---|---|---|
+| **Airbyte** | Broad SaaS/database connector coverage and a UI-driven ingestion platform | Connector breadth is the value; ops, state handling, and connector quality still vary by source |
+| **dlt** | Python-owned ELT pipelines, embedded ingestion inside codebases, custom APIs | Less of a platform UI; best when engineers own the ingestion code |
+| **Debezium** | Log-based CDC from operational databases through Kafka/Kafka Connect | CDC primitive, not a full ingestion product; schema changes and snapshots need design |
+| **Meltano / Singer ecosystem** | Lightweight connector orchestration and portable ELT conventions | Connector maintenance is uneven; good for small teams that accept code-level ownership |
+| **Sling / ingestr** | Simple CLI-first replication and quick database/API moves | Great for narrow jobs; not a substitute for enterprise connector governance |
+
+Default to Airbyte for breadth, Debezium for serious CDC, and dlt when ingestion is part of a Python data product.
 
 ## Related
 

@@ -1,7 +1,8 @@
 ---
 title: Data quality
 category: governance-quality
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # Data quality
@@ -37,6 +38,18 @@ updated: 2026-07-12
 - Score coverage on tier-1 assets first; a dashboard of *quality SLO compliance per domain* creates the right incentive gradient.
 - Every check needs an owner and an action; unowned alerts train people to ignore alerts.
 - Publish quality status into the [catalog](data-catalog-and-lineage.md) so trust is visible at the point of discovery.
+
+## Open source project comparison
+
+| Project | Best fit | Watch-outs |
+|---|---|---|
+| **Great Expectations** | Declarative expectations, validation suites, data-doc-style reporting | Powerful but can become heavy; keep checks tied to owners and actions |
+| **Soda Core** | SQL-centric checks, freshness/volume tests, lightweight observability patterns | OSS core covers checks; broader monitoring may require surrounding tooling |
+| **dbt tests / dbt-expectations** | Transformation-layer uniqueness, not-null, relationships, accepted values | Excellent for known assertions; not anomaly detection over the whole estate |
+| **Deequ** | Spark-scale data quality constraints and profiling | Fits Spark shops; less ergonomic for SQL-first analytics teams |
+| **OpenMetadata quality** | Publishing quality status into the catalog context | Quality is more useful at discovery time, but execution coverage still comes from tests/monitors |
+
+Combine transformation tests for invariants with observability/anomaly checks for surprises; no single OSS tool replaces an incident process.
 
 ## Related
 

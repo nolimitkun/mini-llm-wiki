@@ -1,7 +1,8 @@
 ---
 title: Data lake
 category: storage
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # Data lake
@@ -37,6 +38,19 @@ The lake's flexibility is its failure mode. Without discipline you get the **dat
 - **Partitioning** by date/tenant prunes scans, but over-partitioning (high-cardinality keys) recreates the small-file problem.
 - **Layout is forever-ish**: renaming paths breaks every downstream reader — treat directory structure as an API.
 - **Security**: object-store ACLs are coarse; fine-grained (row/column) control needs a table format + governance layer on top ([data-security-and-privacy.md](data-security-and-privacy.md)).
+
+## Open source project comparison
+
+The lake itself is mostly object storage plus conventions; the project choice is about how much storage operations you want to own.
+
+| Project | Best fit | Watch-outs |
+|---|---|---|
+| **MinIO** | S3-compatible object storage for on-prem, edge, labs, and sovereign deployments | Simple and fast, but you still own durability design, upgrades, lifecycle policy, and capacity planning |
+| **Ceph** | Unified object/block/file storage for infrastructure teams already operating storage clusters | Much broader than a data lake substrate; operational surface is larger than MinIO |
+| **Apache Ozone** | Hadoop-adjacent object storage at very large scale | Niche fit unless you already live in the Hadoop ecosystem |
+| **LakeFS** | Git-like branching/versioning over object-store data workflows | Complements object storage; does not replace table-format transactions or a governance catalog |
+
+For most data teams, avoid making storage clever: pick S3-compatible semantics, standardize paths/zones, and put table formats plus catalogs above it.
 
 ## Related
 

@@ -1,7 +1,8 @@
 ---
 title: Embeddings
 category: genai-platform
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # Embeddings
@@ -30,6 +31,18 @@ A dedicated embedding model (small encoder, distinct from generative LLMs) maps 
 ## Beyond RAG
 
 Embedding columns are appearing *inside* the warehouse/lakehouse (native VECTOR types): semantic dedup of customer records, similarity joins, clustering support tickets — treat these like any computed column, with the same refresh and lineage discipline.
+
+## Open source project comparison
+
+| Project / model family | Best fit | Watch-outs |
+|---|---|---|
+| **BGE / bge-m3** | Strong general multilingual/text retrieval baseline in open embedding stacks | Validate on your corpus; leaderboard wins do not guarantee domain fit |
+| **E5** | General text embeddings with broad community use | Input formatting conventions matter; keep model version in vector metadata |
+| **GTE / Nomic Embed** | Practical open alternatives for local or private embedding pipelines | Dimensionality and context length affect vector cost and chunking strategy |
+| **SentenceTransformers** | Training/fine-tuning/evaluating embedding models in Python | Library, not one model; own benchmarking and deployment path |
+| **TEI / Infinity / vLLM embeddings support** | Serving embedding models behind an API | Serving layer choice depends on throughput, batching, and GPU/CPU economics |
+
+Pick embeddings by retrieval evals, not vibes: build a small question-document set and measure recall before re-embedding millions of chunks.
 
 ## Related
 

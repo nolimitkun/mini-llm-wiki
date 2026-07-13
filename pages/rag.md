@@ -1,7 +1,8 @@
 ---
 title: Retrieval-Augmented Generation (RAG)
 category: genai-platform
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # Retrieval-Augmented Generation (RAG)
@@ -53,6 +54,19 @@ Re-run on every config change; mine production failures back into the set.
 ## Variants
 
 **Agentic RAG** (the model iterates search→read→refine — [agents-and-mcp.md](agents-and-mcp.md)); **GraphRAG** (retrieval over an extracted knowledge graph for multi-hop questions); **text-to-SQL** (retrieval over schema/metrics — best via the [semantic layer](semantic-layer.md)); and **long-context stuffing** (viable for small stable corpora; RAG wins on cost, freshness, and scale).
+
+## Open source project comparison
+
+| Project | RAG role | Watch-outs |
+|---|---|---|
+| **LlamaIndex** | Data connectors, indexes, retrieval pipelines, document-centric RAG workflows | Useful abstractions; keep ingestion, ACLs, and evals explicit |
+| **LangChain** | Chains/tools/integrations and broad application framework ecosystem | Flexibility can obscure ownership boundaries; avoid framework lock-in around core data |
+| **Haystack** | Pipeline-oriented RAG/search systems with production-minded components | Smaller mindshare than LangChain/LlamaIndex, but cleaner for some retrieval pipelines |
+| **LangGraph** | Stateful multi-step/agentic retrieval workflows | Use when loops/branching are real; fixed workflows are easier to test |
+| **Unstructured / Docling / Apache Tika** | Parsing PDFs, Office docs, HTML, and messy enterprise content | Parsing quality often dominates RAG quality; benchmark on your ugly documents |
+| **FlagEmbedding / cross-encoder rerankers** | Reranking top candidates for relevance | Adds latency/cost; usually worth it for answer quality |
+
+Frameworks accelerate assembly, but RAG quality usually comes from parsing, chunking, hybrid search, reranking, ACLs, and evals--not the framework name.
 
 ## Related
 

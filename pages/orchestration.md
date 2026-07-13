@@ -1,7 +1,8 @@
 ---
 title: Orchestration
 category: ingestion-processing
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # Orchestration
@@ -31,6 +32,18 @@ The significant recent shift: from "schedule **tasks**" to "declare **data asset
 - **Data-aware triggers over clock guessing**: "run when upstream table updates" beats "run at 3am and hope ingestion finished".
 - **Alert on outcomes, not noise**: page on SLA misses of tier-1 assets; log-and-batch the rest. An orchestrator that cries wolf gets muted.
 - **ML/AI pipelines are just DAGs too**: training, [embedding/index refreshes](llms-on-the-platform.md), evaluation runs belong on the same orchestrator with the same disciplines ([mlops.md](mlops.md)).
+
+## Open source project comparison
+
+| Project | Best fit | Watch-outs |
+|---|---|---|
+| **Airflow** | Mature task-centric DAG scheduling, huge operator ecosystem, teams that need a common denominator | Easy to overload with business logic; asset awareness and local dev ergonomics lag newer designs |
+| **Dagster** | Asset-centric data platforms, typed assets, freshness policies, lineage-aware development | Requires adopting its mental model; fewer legacy integrations than Airflow |
+| **Prefect** | Python-first workflow automation, dynamic flows, approachable developer experience | Governance and asset semantics depend more on team conventions |
+| **Argo Workflows** | Kubernetes-native batch/workflow execution for containerized jobs | Great execution substrate, but less data-aware out of the box |
+| **Temporal** | Durable application workflows and long-running business processes | Excellent for services; not a drop-in data orchestrator unless you build data semantics around it |
+
+Airflow remains the safe incumbent; Dagster is the strongest data-asset choice; Prefect is the ergonomic Python option.
 
 ## Related
 

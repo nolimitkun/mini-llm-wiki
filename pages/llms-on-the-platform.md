@@ -1,7 +1,8 @@
 ---
 title: LLMs on the data platform
 category: genai-platform
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # LLMs on the data platform
@@ -38,6 +39,19 @@ Extraction (unstructured → structured), classification/tagging at scale, summa
 ## Consuming models well
 
 Provider APIs behind a **gateway** (auth, quotas, logging, routing, caching, failover) are the default; self-hosted open weights (vLLM-class serving — [model-serving.md](model-serving.md)) enter for residency or sustained-volume economics. Either way: pin model versions, stream user-facing responses, meter everything.
+
+## Open source project comparison
+
+| Project | Platform role | Watch-outs |
+|---|---|---|
+| **vLLM** | High-throughput open-weight LLM serving with continuous batching and KV-cache efficiency | GPU ops and model evaluation remain yours; pair with a gateway and observability |
+| **Ollama** | Local development, demos, edge/small self-hosted models | Great ergonomics, not the high-scale serving default |
+| **LiteLLM** | Gateway/routing layer across OpenAI-compatible APIs, open models, and providers | Gateway, not model server; enforce auth, budgets, and logs here |
+| **Open WebUI** | Internal chat UI over local/provider models | Useful interface, not an enterprise LLM platform by itself |
+| **LangChain / LlamaIndex / Haystack / LangGraph** | Application frameworks for RAG, tools, agents, retrieval, workflows | Framework choice should not own your data contracts; keep platform primitives underneath |
+| **Mistral/Qwen/Llama/DeepSeek open weights** | Self-hosted or privately deployed foundation models | License, safety, eval quality, and serving cost vary by model family and release |
+
+The platform default is provider APIs behind LiteLLM-style governance; self-host with vLLM when residency, latency, or sustained economics beat API simplicity.
 
 ## Related
 

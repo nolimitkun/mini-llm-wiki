@@ -1,7 +1,8 @@
 ---
 title: Agents & MCP
 category: genai-platform
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # Agents & MCP
@@ -34,6 +35,18 @@ An MCP server exposes **tools**, **resources**, and **prompts** over a standard 
 - **Assume prompt injection succeeds**: any retrieved document or tool result can carry hostile instructions; the defense is limiting what the agent *can do*, not hoping the model ignores them.
 - **Trace everything**: every step (prompt, tool, args, result) logged — required for debugging trajectories and for audit ([llmops.md](llmops.md)).
 - **Evaluate trajectories**, not just answers: right tool? sane order? recovered from errors? finished within budget?
+
+## Open source project comparison
+
+| Project / standard | Best fit | Watch-outs |
+|---|---|---|
+| **MCP** | Standardizing tool/resource access from assistants to data systems, catalogs, docs, and operational tools | Standard is the interface; your server still owns auth, policy, cost caps, and audit |
+| **LangGraph** | Stateful agent workflows with explicit graphs, checkpoints, and controllable loops | Good for complex agents; unnecessary for fixed linear workflows |
+| **AutoGen / CrewAI** | Multi-agent experimentation and role-based collaboration patterns | Treat as experimentation until evals, tool permissions, and traceability are production-grade |
+| **LlamaIndex agents / LangChain agents** | Fast assembly over retrieval and tool ecosystems | Framework convenience can blur security boundaries; keep executor policy outside prompts |
+| **OpenHands / SWE-agent-style systems** | Code/data-engineering agents operating in sandboxes | High-value but high-risk; require isolated execution, review gates, and scoped credentials |
+
+For enterprise data platforms, MCP is the integration contract; the agent framework is secondary to permissioning, deterministic tools, tracing, and trajectory evals.
 
 ## Related
 

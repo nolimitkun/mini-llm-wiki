@@ -1,7 +1,8 @@
 ---
 title: Feature stores
 category: ml-platform
-updated: 2026-07-12
+updated: 2026-07-13
+sources: [sources/2026-07-open-source-project-comparisons.md]
 ---
 
 # Feature stores
@@ -41,6 +42,18 @@ Plus a registry: feature metadata, owners, freshness, and which models consume w
 - Feature pipelines are production pipelines: [quality tests](data-quality.md), freshness SLOs (a stale online feature silently degrades every prediction), backfill paths.
 - Monitor **offline/online consistency** explicitly — sample online reads against offline recomputation.
 - Features are governed data: PII classification and access control apply ([data-governance.md](data-governance.md)); embeddings served for [GenAI](llms-on-the-platform.md) increasingly live in the same discipline.
+
+## Open source project comparison
+
+| Project | Best fit | Watch-outs |
+|---|---|---|
+| **Feast** | OSS feature registry, point-in-time joins, offline/online store abstraction | Default OSS choice; you still operate storage, pipelines, quality, and online serving |
+| **Hopsworks Feature Store** | More complete feature platform with UI, governance, and managed path options | Heavier stack; evaluate whether you need platform breadth or just Feast-like primitives |
+| **Butterfree** | Spark-based feature engineering pipelines | Narrower ecosystem; useful when Spark feature computation is the main pain |
+| **Lakehouse tables + dbt/Spark** | Batch-only models and simple reusable features without online serving | Often enough; do not add a feature store until point-in-time reuse or online lookup hurts |
+| **Redis / Cassandra / DynamoDB-compatible stores** | Online feature materialization targets | Serving store, not feature governance; pair with a registry and offline source of truth |
+
+Adopt Feast when online/offline consistency and point-in-time training joins become recurring problems, not because every ML platform diagram has a feature store box.
 
 ## Related
 
