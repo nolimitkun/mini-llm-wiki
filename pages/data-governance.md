@@ -2,7 +2,7 @@
 title: Data governance
 category: governance-quality
 updated: 2026-07-13
-sources: [sources/2026-07-open-source-project-comparisons.md]
+sources: [sources/2026-07-open-source-project-comparisons.md, sources/2026-07-commercial-product-comparisons.md]
 ---
 
 # Data governance
@@ -51,6 +51,19 @@ AI systems stress governance because they move data across boundaries at runtime
 | **OpenLineage** | Standard lineage event model across orchestrators and engines | Complements catalogs; does not solve discovery, ownership, or policy by itself |
 
 Use catalogs for governance workflow, OPA/Ranger for enforcement where they fit, and OpenLineage as the exchange format between systems.
+
+## Commercial product comparison
+
+| Product | Governance role | Watch-outs |
+|---|---|---|
+| **Collibra** | Enterprise governance workflows, policy, stewardship, glossary, compliance | Powerful but process-heavy; adoption requires operating-model work |
+| **Alation** | Data catalog, stewardship, query intelligence, analyst discovery | Strong discovery/governance experience; enforcement still lives in platforms |
+| **Atlan** | Modern active metadata, collaboration, lineage, and workflow integration | Good UX/integrations; confirm coverage for your engines and governance policies |
+| **Microsoft Purview** | Microsoft/Azure governance, catalog, classification, and compliance alignment | Best in Microsoft estates; heterogeneous coverage requires validation |
+| **Databricks Unity Catalog** | Lakehouse governance, permissions, lineage, discovery inside Databricks | Strong enforcement in-platform; external assets need integration |
+| **Snowflake Horizon / governance features** | Snowflake-native governance, lineage, discovery, policy controls | Excellent for Snowflake assets; multi-platform governance needs a broader plane |
+
+Commercial governance succeeds when workflow and enforcement connect. A beautiful catalog without access policy, lineage, and owner accountability becomes shelfware.
 
 ## Related
 

@@ -2,7 +2,7 @@
 title: Data modeling
 category: modeling-serving
 updated: 2026-07-13
-sources: [sources/2026-07-open-source-project-comparisons.md]
+sources: [sources/2026-07-open-source-project-comparisons.md, sources/2026-07-commercial-product-comparisons.md]
 ---
 
 # Data modeling
@@ -54,6 +54,18 @@ Modeling is a practice more than a product, but OSS tools shape how models are e
 | **MetricFlow / Cube / Lightdash metrics** | Turning modeled tables into governed metrics for humans and agents | Semantic layers expose modeling mistakes quickly; fix grains and relationships first |
 
 Use dbt/SQLMesh to encode the physical model, a catalog to make it discoverable, and a semantic layer only after the core grains are defensible.
+
+## Commercial product comparison
+
+| Product | Modeling role | Watch-outs |
+|---|---|---|
+| **dbt Cloud** | Collaborative SQL modeling, docs, exposures, semantic-layer path | Still depends on good grains, owners, and tests; it will not fix conceptual modeling |
+| **Coalesce** | Visual modeling and transformation patterns for Snowflake teams | Strong productivity for Snowflake estates; less portable as a general modeling layer |
+| **Erwin / ER/Studio / SqlDBM** | Enterprise logical/physical data modeling and documentation | Useful for governance-heavy teams; can become detached from executable transformation code |
+| **Atlan / Alation / Collibra** | Catalog-side model documentation, ownership, glossary, and usage context | Catalogs describe models; they do not enforce modeling discipline by themselves |
+| **Looker / Tableau semantic models / Power BI models** | BI-facing governed relationships and metrics | Risk of business logic living only in BI unless synchronized with warehouse models |
+
+Commercial modeling value comes from collaboration and governance around the model. Keep the executable truth close to transformation code and publish it outward.
 
 ## Related
 

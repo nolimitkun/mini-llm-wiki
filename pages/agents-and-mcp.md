@@ -2,7 +2,7 @@
 title: Agents & MCP
 category: genai-platform
 updated: 2026-07-13
-sources: [sources/2026-07-open-source-project-comparisons.md]
+sources: [sources/2026-07-open-source-project-comparisons.md, sources/2026-07-commercial-product-comparisons.md]
 ---
 
 # Agents & MCP
@@ -47,6 +47,19 @@ An MCP server exposes **tools**, **resources**, and **prompts** over a standard 
 | **OpenHands / SWE-agent-style systems** | Code/data-engineering agents operating in sandboxes | High-value but high-risk; require isolated execution, review gates, and scoped credentials |
 
 For enterprise data platforms, MCP is the integration contract; the agent framework is secondary to permissioning, deterministic tools, tracing, and trajectory evals.
+
+## Commercial product comparison
+
+| Product | Best fit | Watch-outs |
+|---|---|---|
+| **OpenAI Assistants/Responses tools** | Managed tool use, structured outputs, hosted retrieval/code-style capabilities | Fast path, but tool permissions and data boundaries need platform controls |
+| **Anthropic Claude tool use / computer use** | Strong agentic reasoning and tool calling patterns | Keep irreversible actions behind external approval gates |
+| **Google Vertex AI Agent Builder** | GCP-native enterprise agents over search, tools, and workflows | Best in GCP; inspect retrieval transparency and permission propagation |
+| **Amazon Bedrock Agents** | AWS-native agents with model choice and enterprise controls | Convenient AWS path; orchestration remains opinionated |
+| **Microsoft Copilot Studio / Azure AI Foundry Agents** | Microsoft 365/Dynamics/Azure-integrated business agents | Strong enterprise integration; avoid uncontrolled sprawl of departmental copilots |
+| **Dust / Relevance AI / Writer / Salesforce Agentforce** | Business-facing agent platforms and workflow automation | Useful app layer; platform teams still need identity, audit, and data-access standards |
+
+Commercial agent platforms make demos easy. Production safety comes from boring controls: scoped tools, end-user permissions, cost caps, audit logs, and trajectory evals.
 
 ## Related
 

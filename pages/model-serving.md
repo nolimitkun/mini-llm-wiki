@@ -2,7 +2,7 @@
 title: Model serving
 category: ml-platform
 updated: 2026-07-13
-sources: [sources/2026-07-open-source-project-comparisons.md]
+sources: [sources/2026-07-open-source-project-comparisons.md, sources/2026-07-commercial-product-comparisons.md]
 ---
 
 # Model serving
@@ -47,6 +47,19 @@ Serving LLMs inherits everything above plus its own regime — huge models, toke
 | **vLLM / SGLang / TGI** | LLM-specific high-throughput GPU serving | Specialized for generative models; still need gateway, evals, quotas, and logging |
 
 Choose classic serving by deployment topology, and LLM serving by throughput, GPU memory, batching behavior, and operational visibility.
+
+## Commercial product comparison
+
+| Product | Best fit | Watch-outs |
+|---|---|---|
+| **SageMaker endpoints** | AWS-native model deployment, autoscaling, monitoring, and registry integration | Broad but configurable; cost and endpoint sprawl need governance |
+| **Vertex AI Prediction** | GCP-native managed online/batch prediction | Best with Vertex AI pipelines/registry; custom serving still requires care |
+| **Azure ML managed endpoints** | Azure-native managed inference integrated with Microsoft identity and ML lifecycle | Strong Azure fit; product boundaries with AI Foundry should be understood |
+| **Databricks Model Serving / Mosaic AI Gateway** | Lakehouse-native classic ML and GenAI serving with governance close to data | Best inside Databricks; evaluate latency/cost for high-QPS serving |
+| **BentoCloud / Baseten / Modal / Replicate** | Developer-friendly model serving and GPU-backed deployment for startups/product teams | Great speed; governance and data residency must be checked |
+| **OpenAI / Anthropic / Google / Azure model APIs** | Foundation model serving without owning GPUs | Gateway, evals, data policy, and provider risk become the platform work |
+
+Commercial serving choice is about operational burden: managed endpoints for classic ML, provider APIs for most LLMs, self-host only when control or economics wins.
 
 ## Related
 

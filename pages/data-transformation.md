@@ -2,7 +2,7 @@
 title: Data transformation
 category: ingestion-processing
 updated: 2026-07-13
-sources: [sources/2026-07-open-source-project-comparisons.md]
+sources: [sources/2026-07-open-source-project-comparisons.md, sources/2026-07-commercial-product-comparisons.md]
 ---
 
 # Data transformation
@@ -56,6 +56,19 @@ Full rebuilds are simple and correct — do them while you can afford to. When t
 | **Dataform-style SQL repos** | Warehouse-native SQL projects with lightweight workflow needs | Often tied to a platform; evaluate portability if OSS/control matters |
 
 Choose the tool by dominant transformation shape: dbt/SQLMesh for modeled analytics, Spark for heavy compute, Flink only when continuous state is truly required.
+
+## Commercial product comparison
+
+| Product | Best fit | Watch-outs |
+|---|---|---|
+| **dbt Cloud** | Managed dbt development, scheduling, docs, CI, and semantic-layer integration | Great standardization path; remember dbt-core portability and vendor consolidation risk |
+| **Coalesce** | Visual, Snowflake-centered transformation development with governance controls | Productive for Snowflake teams; less neutral than code-first SQL repos |
+| **Dataform / BigQuery workflows** | GCP-native SQL transformation projects in BigQuery estates | Convenient inside GCP; portability is limited |
+| **Matillion** | Visual ELT pipelines and transformations for cloud warehouses | Strong for visual builders; complex logic can become harder to review than code |
+| **Prophecy** | Visual Spark/dbt development for data engineering teams | Useful bridge between visual and code; evaluate generated-code maintainability |
+| **Databricks Workflows + DLT** | Managed lakehouse transformations and expectations inside Databricks | Strong integrated path; tied to Databricks operating model |
+
+Commercial transformation tools trade code purity for managed collaboration, scheduling, lineage, and guardrails. Pick based on who authors transformations and how reviews happen.
 
 ## Related
 

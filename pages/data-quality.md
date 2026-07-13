@@ -2,7 +2,7 @@
 title: Data quality
 category: governance-quality
 updated: 2026-07-13
-sources: [sources/2026-07-open-source-project-comparisons.md]
+sources: [sources/2026-07-open-source-project-comparisons.md, sources/2026-07-commercial-product-comparisons.md]
 ---
 
 # Data quality
@@ -50,6 +50,19 @@ sources: [sources/2026-07-open-source-project-comparisons.md]
 | **OpenMetadata quality** | Publishing quality status into the catalog context | Quality is more useful at discovery time, but execution coverage still comes from tests/monitors |
 
 Combine transformation tests for invariants with observability/anomaly checks for surprises; no single OSS tool replaces an incident process.
+
+## Commercial product comparison
+
+| Product | Best fit | Watch-outs |
+|---|---|---|
+| **Monte Carlo** | Data observability across freshness, volume, schema, lineage, and incidents | Strong monitoring layer; still pair with transformation tests and ownership |
+| **Bigeye** | Data observability and anomaly detection for warehouse/lakehouse teams | Alert quality and incident workflow matter more than dashboard count |
+| **Soda Cloud** | Managed checks, agreements, and data quality monitoring with OSS continuity | Good SQL/check workflow; coverage depends on connected systems |
+| **Anomalo** | ML-driven data quality monitoring, especially for enterprise warehouses | Useful anomaly layer; interpretability and action routing need process |
+| **Informatica / Talend data quality** | Enterprise suite quality, profiling, cleansing, and governance integration | Powerful but can be heavyweight for modern code-first teams |
+| **Databricks DLT expectations / Great Expectations Cloud** | Quality gates close to pipelines and transformation workflows | Works best when embedded in deployment gates, not just reporting |
+
+Commercial data quality buys monitoring and workflow. It does not replace producer contracts, model tests, or incident ownership.
 
 ## Related
 

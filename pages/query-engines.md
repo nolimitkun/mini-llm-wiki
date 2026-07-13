@@ -2,7 +2,7 @@
 title: Query engines
 category: modeling-serving
 updated: 2026-07-13
-sources: [sources/2026-07-open-source-project-comparisons.md]
+sources: [sources/2026-07-open-source-project-comparisons.md, sources/2026-07-commercial-product-comparisons.md]
 ---
 
 # Query engines
@@ -49,6 +49,19 @@ Practical performance triage, in order: *is the layout pruning?* → *is one tas
 | **Polars / DataFusion** | Dataframe/native engine embedding in applications and pipelines | Great libraries; platform governance and SQL serving need surrounding systems |
 
 A healthy platform usually has one paved-road SQL engine, one heavy batch engine, and one real-time serving engine only when product latency demands it.
+
+## Commercial product comparison
+
+| Product | Best fit | Watch-outs |
+|---|---|---|
+| **Snowflake** | Managed SQL warehouse, governed BI, data sharing, semi-structured analytics | Strong general default; cost guardrails are mandatory |
+| **BigQuery** | Serverless SQL and large-scale analytics in GCP | Pricing and slot strategy need active management |
+| **Databricks SQL / Photon** | Lakehouse SQL close to Spark, Delta/Iceberg, ML, and notebooks | Best inside Databricks ecosystem |
+| **Starburst Galaxy** | Managed Trino for federated SQL and open lakehouse queries | Query layer only; storage/catalog/governance still matter |
+| **Dremio Cloud** | Accelerated SQL on lakehouse data and semantic layer patterns | Benchmark reflections/acceleration on real workloads |
+| **ClickHouse Cloud / Imply / Tinybird** | Real-time OLAP and event-serving query patterns | Specialized serving engines; add when latency/concurrency justify another store |
+
+Commercial query products should map to workload classes. One product rarely wins BI, heavy ETL, federation, local dev, and real-time serving equally.
 
 ## Related
 

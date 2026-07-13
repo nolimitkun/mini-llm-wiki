@@ -2,7 +2,7 @@
 title: Embeddings
 category: genai-platform
 updated: 2026-07-13
-sources: [sources/2026-07-open-source-project-comparisons.md]
+sources: [sources/2026-07-open-source-project-comparisons.md, sources/2026-07-commercial-product-comparisons.md]
 ---
 
 # Embeddings
@@ -43,6 +43,19 @@ Embedding columns are appearing *inside* the warehouse/lakehouse (native VECTOR 
 | **TEI / Infinity / vLLM embeddings support** | Serving embedding models behind an API | Serving layer choice depends on throughput, batching, and GPU/CPU economics |
 
 Pick embeddings by retrieval evals, not vibes: build a small question-document set and measure recall before re-embedding millions of chunks.
+
+## Commercial product comparison
+
+| Product | Best fit | Watch-outs |
+|---|---|---|
+| **OpenAI embeddings** | Strong general-purpose API embeddings with broad ecosystem support | Token cost, provider dependency, and model migrations require re-embedding plans |
+| **Cohere Embed** | Enterprise retrieval, multilingual, rerank pairing, and private deployment options | Validate on your corpus and language/domain mix |
+| **Voyage AI** | High-quality retrieval embeddings and domain-oriented model variants | Great retrieval focus; check provider risk and pricing at corpus scale |
+| **Google Vertex AI embeddings / Gemini embedding models** | GCP-native embedding pipelines and Vertex integration | Best when data and serving are already in GCP |
+| **Amazon Bedrock embeddings** | AWS-native embedding model access and governance | Model choice varies; benchmark each model family |
+| **Azure AI model catalog embeddings** | Microsoft-governed embedding access for Azure estates | Useful for Azure policy/residency; evaluate quality and portability |
+
+Commercial embeddings are easy to start and expensive to change. Version every vector and run retrieval evals before a corpus-wide migration.
 
 ## Related
 

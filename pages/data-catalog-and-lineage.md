@@ -2,7 +2,7 @@
 title: Data catalog & lineage
 category: governance-quality
 updated: 2026-07-13
-sources: [sources/2026-07-open-source-project-comparisons.md]
+sources: [sources/2026-07-open-source-project-comparisons.md, sources/2026-07-commercial-product-comparisons.md]
 ---
 
 # Data catalog & lineage
@@ -50,6 +50,19 @@ Catalogs fail socially, not technically: bought, populated, ignored. What works 
 | **Amundsen** | Search/discovery-oriented legacy OSS catalog pattern | Less momentum than newer OpenMetadata/DataHub paths |
 
 Default to OpenMetadata when you want an integrated catalog product; choose DataHub when metadata graph extensibility and streaming ingestion are central.
+
+## Commercial product comparison
+
+| Product | Best fit | Watch-outs |
+|---|---|---|
+| **Atlan** | Active metadata, collaboration, lineage, and modern catalog UX across tools | Validate depth for your most important engines and BI tools |
+| **Alation** | Analyst discovery, query intelligence, stewardship, and broad enterprise cataloging | Strong adoption story; policy enforcement still depends on connected systems |
+| **Collibra** | Formal governance, data office workflows, glossary, compliance reporting | Heavyweight; value depends on stewardship process maturity |
+| **Microsoft Purview** | Microsoft/Azure catalog, scanning, classification, and compliance | Best when Microsoft is the platform center |
+| **Databricks Unity Catalog** | Technical catalog, permissions, lineage, and discovery for Databricks lakehouse assets | Not a universal catalog unless most assets live in Databricks |
+| **Google Dataplex / Data Catalog, AWS Glue/Lake Formation** | Cloud-native catalog/governance inside GCP or AWS | Good local defaults; multi-cloud discovery often needs another layer |
+
+Pick a catalog by where metadata is created and where users work. The best catalog is the one wired into pull requests, BI, incidents, and access requests.
 
 ## Related
 
